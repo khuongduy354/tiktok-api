@@ -8,7 +8,9 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "express": "^4.17.3"
+    "@types/pg": "^8.6.5",
+    "express": "^4.17.3",
+    "pg": "^8.7.3"
   },
   "scripts": {
     "start": "nodemon index.ts"

@@ -17,7 +17,7 @@ app.get("/isLoggedIn", async (req, res) => {
   console.log(userInfo);
   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
 });
-app.get("/helloworld", (req, res) => {
+app.get("/helloworld", async (req, res) => {
   res.send("Hello");
 });
 
