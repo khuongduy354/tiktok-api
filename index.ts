@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(auth(authConfig));
 app.use(express.urlencoded({ extended: true }));
-app.use("/tiktok/api", router);
+app.use("/tiktok/v1", router);
 
 //Test endpoints
 app.get("/isLoggedIn", async (req, res) => {

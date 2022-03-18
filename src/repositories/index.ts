@@ -1,3 +1,3 @@
-import { createUser } from "./User.repo";
+import UserDAO from "./User.repo";
 
-export const UserDAO = { createUser };
+export { UserDAO };
