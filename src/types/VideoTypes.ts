@@ -4,3 +4,12 @@ export type addVideoProp = {
   video_location: string;
   _public?: boolean;
 };
+export type likeVideoProp = {
+  author_id: number;
+  video_id: number;
+};
+export type commentVideoProp = {
+  author_id: number;
+  video_id: number;
+  content: string;
+};

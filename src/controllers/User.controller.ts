@@ -28,6 +28,7 @@ const getUserFromEmail = async (req: Request, res: Response) => {
     throw e;
   }
 };
+
 const updateUser = async (req: Request, res: Response) => {
   try {
     const { email: oidcEmail } = req.oidc.user as any;

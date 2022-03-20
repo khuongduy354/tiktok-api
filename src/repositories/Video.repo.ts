@@ -1,5 +1,9 @@
 import { Pool } from "pg";
-import { addVideoProp } from "./../types/VideoTypes";
+import {
+  addVideoProp,
+  commentVideoProp,
+  likeVideoProp,
+} from "./../types/VideoTypes";
 const addVideo = async ({
   author_id,
   title,
@@ -24,5 +28,22 @@ const addVideo = async ({
     throw e;
   }
 };
+
+const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
+  try {
+    const created_at = new Date().toISOString().slice(0, 10);
+    const pool = new Pool();
+
+    const query = ``;
+    await pool.query(query);
+  } catch (e) {
+    throw e;
+  }
+};
+const commentVideo = async ({
+  author_id,
+  video_id,
+  content,
+}: commentVideoProp) => {};
 
 export default { addVideo };
