@@ -33,11 +33,18 @@ const addVideo = async ({
 
 const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
-    const created_at = new Date().toISOString().slice(0, 10);
     const pool = new Pool();
+    const created_at = new Date().toISOString().slice(0, 10);
 
-    const query = ``;
-    await pool.query(query);
+    const videoQuery = `SELECT userheart.user_id as likes FROM video LEFT JOIN userheart on userheart.video_id = video.id`;
+    let likesTables = await pool.query(videoQuery);
+    if (likesTables.rows.some((el) => el.likes === author_id)) {
+      const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
+      await pool.query(query);
+    } else {
+      const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
+      await pool.query(query);
+    }
   } catch (e) {
     throw e;
   }

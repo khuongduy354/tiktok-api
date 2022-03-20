@@ -1,4 +1,8 @@
-import { addVideoProp, getVideoProp } from "./../types/VideoTypes";
+import {
+  addVideoProp,
+  getVideoProp,
+  likeVideoProp,
+} from "./../types/VideoTypes";
 import { Request, Response } from "express";
 import { UserDAO, VideoDAO } from "../repositories/";
 
@@ -33,4 +37,14 @@ const getVideo = async (req: Request, res: Response) => {
     throw e;
   }
 };
-export default { createVideo, getVideo };
+const likeVideo = async (req: Request, res: Response) => {
+  try {
+    const { author_id, video_id }: likeVideoProp = req.body;
+    await VideoDAO.likeVideo({ author_id, video_id });
+    res.status(200).json({ message: " video liked" });
+  } catch (e) {
+    res.status(500).json({ error: "cannot like  video", message: "unsuccess" });
+    throw e;
+  }
+};
+export default { createVideo, getVideo, likeVideo };
