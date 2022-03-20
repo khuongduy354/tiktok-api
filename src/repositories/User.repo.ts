@@ -13,7 +13,7 @@ const createUser = async ({ email, name }: createUserProp) => {
 const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
   try {
     const pool = new Pool();
-    const query = `SELECT * FROM useraccount where email = '${email}'`;
+    const query = `SELECT * from useraccount LEFT JOIN video ON useraccount.ID = video.author_id WHERE useraccount.email = '${email}' `;
     const result = await pool.query(query);
     return result;
   } catch (e) {
