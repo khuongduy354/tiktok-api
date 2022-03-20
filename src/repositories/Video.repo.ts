@@ -41,9 +41,11 @@ const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
     if (likesTables.rows.some((el) => el.likes === author_id)) {
       const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
       await pool.query(query);
+      return false;
     } else {
       const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
       await pool.query(query);
+      return true;
     }
   } catch (e) {
     throw e;

@@ -40,8 +40,8 @@ const getVideo = async (req: Request, res: Response) => {
 const likeVideo = async (req: Request, res: Response) => {
   try {
     const { author_id, video_id }: likeVideoProp = req.body;
-    await VideoDAO.likeVideo({ author_id, video_id });
-    res.status(200).json({ message: " video liked" });
+    const isLike = await VideoDAO.likeVideo({ author_id, video_id });
+    res.status(200).json({ message: `video ${isLike ? "liked" : "disliked"}` });
   } catch (e) {
     res.status(500).json({ error: "cannot like  video", message: "unsuccess" });
     throw e;
