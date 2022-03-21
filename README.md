@@ -1,0 +1,1 @@
+- Make a function that merge a list of properties into object of array of a column

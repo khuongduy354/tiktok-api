@@ -1,6 +1,7 @@
 import { getUserFromEmailProp, updateUserProp } from "./../types/UserTypes";
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
+import { mergeRows } from "../helper/mergeRows";
 const createUser = async ({ email, name }: createUserProp) => {
   try {
     const pool = new Pool();
@@ -13,8 +14,9 @@ const createUser = async ({ email, name }: createUserProp) => {
 const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
   try {
     const pool = new Pool();
-    const query = `SELECT * from useraccount LEFT JOIN video ON useraccount.ID = video.author_id WHERE useraccount.email = '${email}' `;
-    const result = await pool.query(query);
+    const query = `SELECT useraccount.*, video.id as video_id  from useraccount LEFT JOIN video ON useraccount.ID = video.author_id WHERE useraccount.email = '${email}' `;
+    let result = (await pool.query(query)) as any;
+    result = mergeRows(result.rows, "video_id");
     return result;
   } catch (e) {
     throw e;

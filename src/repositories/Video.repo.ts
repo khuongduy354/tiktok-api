@@ -62,9 +62,8 @@ const getVideo = async ({ id }: getVideoProp) => {
     const pool = new Pool();
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
-    const userJoin = `useraccount on useraccount.id = userheart.user_id AND usercomment.user_id = useraccount.id `;
     const target = `video.*,userheart.user_id as likes,usercomment.content as comments`;
-    const query = `SELECT ${target} FROM video LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin} LEFT JOIN ${userJoin} where video.id = '${id}'`;
+    const query = `SELECT ${target} FROM video LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  where video.id = '${id}'`;
     let result = await pool.query(query);
     result.rows = mergeRows(result.rows, "likes");
     result.rows = mergeRows(result.rows, "comments");
