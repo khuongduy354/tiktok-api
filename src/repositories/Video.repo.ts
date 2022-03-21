@@ -75,10 +75,11 @@ const getVideo = async ({ id }: getVideoProp) => {
     let result = await pool.query(query);
     result.rows = mergeRows(result.rows, "likes");
     result.rows = mergeRows(result.rows, "comments");
-
     return result;
   } catch (e) {
     throw e;
   }
 };
+
+const deleteVideo = async ({}) => {};
 export default { addVideo, getVideo, commentVideo, likeVideo };

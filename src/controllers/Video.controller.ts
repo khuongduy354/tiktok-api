@@ -32,7 +32,7 @@ const getVideo = async (req: Request, res: Response) => {
   try {
     const { id }: getVideoProp = req.params as any;
     const video = await VideoDAO.getVideo({ id });
-    res.status(200).json({ message: " video found ", video });
+    res.status(200).json({ message: " video found ", video: video.rows[0] });
   } catch (e) {
     res.status(500).json({ error: "cannot find video", message: "unsuccess" });
     throw e;
@@ -61,4 +61,18 @@ const commentVideo = async (req: Request, res: Response) => {
     throw e;
   }
 };
+
+const deleteVideo = async (req: Request, res: Response) => {
+  try {
+    const { user_id, video_id, content }: commentVideoProp = req.body;
+    await VideoDAO.commentVideo({ user_id, video_id, content });
+    res.status(200).json({ message: `video comment made` });
+  } catch (e) {
+    res
+      .status(500)
+      .json({ error: "cannot comment  video", message: "unsuccess" });
+    throw e;
+  }
+};
+
 export default { createVideo, getVideo, likeVideo, commentVideo };

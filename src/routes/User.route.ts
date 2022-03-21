@@ -9,5 +9,5 @@ export const UserRouter = (router: Router) => {
   router.get("/user/callback", UserController.loginAccount);
   router.get("/user/:email", UserController.getUserFromEmail);
   router.put("/user", requiresAuth(), UserController.updateUser);
-  // router.put("/user/follow", requiresAuth(), UserController.followUser);
+  // router.post("/user/follow", requiresAuth(), UserController.followUser);
 };
