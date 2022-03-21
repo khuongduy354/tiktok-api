@@ -16,3 +16,7 @@ export type commentVideoProp = {
   video_id: number;
   content: string;
 };
+export type deleteVideoProp = {
+  video_id: number;
+  user_id: number;
+};

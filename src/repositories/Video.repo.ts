@@ -1,8 +1,10 @@
 import { mergeRows } from "./../helper/mergeRows";
+import { UserDAO } from ".";
 import { Pool } from "pg";
 import {
   addVideoProp,
   commentVideoProp,
+  deleteVideoProp,
   getVideoProp,
   likeVideoProp,
 } from "./../types/VideoTypes";
@@ -81,5 +83,22 @@ const getVideo = async ({ id }: getVideoProp) => {
   }
 };
 
-const deleteVideo = async ({}) => {};
-export default { addVideo, getVideo, commentVideo, likeVideo };
+const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
+  try {
+    const pool = new Pool();
+    const videoQuery = `SELECT * FROM video where ID = ${video_id}`;
+    const video = await pool.query(videoQuery);
+    if (video.rows[0].author_id !== user_id) {
+      throw Error("Access denied");
+    }
+    const deleteHeart = `DELETE  FROM userheart where video_id  = ${video_id}`;
+    const deleteComment = `DELETE  FROM usercomment where video_id = ${video_id}`;
+    const deleteVideo = `DELETE  FROM video where ID = ${video_id}`;
+    await pool.query(deleteHeart);
+    await pool.query(deleteComment);
+    await pool.query(deleteVideo);
+  } catch (e) {
+    throw e;
+  }
+};
+export default { addVideo, getVideo, commentVideo, likeVideo, deleteVideo };

@@ -64,15 +64,15 @@ const commentVideo = async (req: Request, res: Response) => {
 
 const deleteVideo = async (req: Request, res: Response) => {
   try {
-    const { user_id, video_id, content }: commentVideoProp = req.body;
-    await VideoDAO.commentVideo({ user_id, video_id, content });
-    res.status(200).json({ message: `video comment made` });
+    const { user_id, video_id }: commentVideoProp = req.body;
+    await VideoDAO.deleteVideo({ user_id, video_id });
+    res.status(200).json({ message: `video deleted ` });
   } catch (e) {
     res
       .status(500)
-      .json({ error: "cannot comment  video", message: "unsuccess" });
+      .json({ error: "cannot delete  video", message: "unsuccess" });
     throw e;
   }
 };
 
-export default { createVideo, getVideo, likeVideo, commentVideo };
+export default { createVideo, getVideo, likeVideo, commentVideo, deleteVideo };
