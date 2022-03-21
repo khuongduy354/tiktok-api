@@ -1,4 +1,8 @@
-import { getUserFromEmailProp, updateUserProp } from "./../types/UserTypes";
+import {
+  followUserProp,
+  getUserFromEmailProp,
+  updateUserProp,
+} from "./../types/UserTypes";
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
 import { mergeRows } from "../helper/mergeRows";
@@ -45,4 +49,22 @@ const updateUser = async ({
   }
 };
 
-export default { getUserFromEmail, createUser, updateUser };
+const followUser = async ({ user_id, follower_id }: followUserProp) => {
+  try {
+    const pool = new Pool();
+    const checkExistQuery = `SELECT * FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
+    const checkResult = await pool.query(checkExistQuery);
+    if (checkResult.rows.length !== 0) {
+      const query = `DELETE FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
+      await pool.query(query);
+      return false;
+    } else {
+      const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
+      await pool.query(query);
+      return true;
+    }
+  } catch (e) {
+    throw e;
+  }
+};
+export default { getUserFromEmail, createUser, updateUser, followUser };

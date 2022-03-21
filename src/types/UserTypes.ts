@@ -13,3 +13,7 @@ export type updateUserProp = {
   phone_number?: string;
   avatar?: string;
 };
+export type followUserProp = {
+  follower_id: number;
+  user_id: number;
+};

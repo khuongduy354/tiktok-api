@@ -1,9 +1,10 @@
 import {
   createUserProp,
+  followUserProp,
   getUserFromEmailProp,
   updateUserProp,
 } from "./../types/UserTypes";
-import { UserDAO } from "../repositories";
+import { UserDAO, VideoDAO } from "../repositories";
 import { Request, Response } from "express";
 
 const loginAccount = async (req: Request, res: Response) => {
@@ -42,4 +43,16 @@ const updateUser = async (req: Request, res: Response) => {
     throw e;
   }
 };
-export default { loginAccount, getUserFromEmail, updateUser };
+const followUser = async (req: Request, res: Response) => {
+  try {
+    const { user_id, follower_id }: followUserProp = req.body;
+    const isFollow = await UserDAO.followUser({ user_id, follower_id });
+    res
+      .status(200)
+      .json({ message: `${isFollow ? "followed " : "unfollowed "} user ` });
+  } catch (e) {
+    res.status(500).json({ error: "cannot find", message: "unsuccess" });
+    throw e;
+  }
+};
+export default { loginAccount, getUserFromEmail, updateUser, followUser };
