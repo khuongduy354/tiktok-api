@@ -34,7 +34,6 @@ const addVideo = async ({
 const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
     const pool = new Pool();
-    const created_at = new Date().toISOString().slice(0, 10);
 
     const videoQuery = `SELECT userheart.user_id as likes FROM video LEFT JOIN userheart on userheart.video_id = video.id`;
     let likesTables = await pool.query(videoQuery);
@@ -52,10 +51,19 @@ const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   }
 };
 const commentVideo = async ({
-  author_id,
+  user_id,
   video_id,
   content,
-}: commentVideoProp) => {};
+}: commentVideoProp) => {
+  try {
+    const pool = new Pool();
+    const created_at = new Date().toISOString().slice(0, 10);
+    const query = `INSERT INTO usercomment (user_id, video_id,content,created_at) VALUES  ('${user_id}','${video_id}','${content}','${created_at}') `;
+    await pool.query(query);
+  } catch (e) {
+    throw e;
+  }
+};
 
 const getVideo = async ({ id }: getVideoProp) => {
   try {

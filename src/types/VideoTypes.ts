@@ -12,7 +12,7 @@ export type likeVideoProp = {
   video_id: number;
 };
 export type commentVideoProp = {
-  author_id: number;
+  user_id: number;
   video_id: number;
   content: string;
 };

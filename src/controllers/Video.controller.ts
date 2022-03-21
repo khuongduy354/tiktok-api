@@ -1,5 +1,6 @@
 import {
   addVideoProp,
+  commentVideoProp,
   getVideoProp,
   likeVideoProp,
 } from "./../types/VideoTypes";
@@ -47,4 +48,17 @@ const likeVideo = async (req: Request, res: Response) => {
     throw e;
   }
 };
-export default { createVideo, getVideo, likeVideo };
+
+const commentVideo = async (req: Request, res: Response) => {
+  try {
+    const { user_id, video_id, content }: commentVideoProp = req.body;
+    await VideoDAO.commentVideo({ user_id, video_id, content });
+    res.status(200).json({ message: `video comment made` });
+  } catch (e) {
+    res
+      .status(500)
+      .json({ error: "cannot comment  video", message: "unsuccess" });
+    throw e;
+  }
+};
+export default { createVideo, getVideo, likeVideo, commentVideo };

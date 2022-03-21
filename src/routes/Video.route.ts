@@ -13,5 +13,5 @@ export const VideoRouter = (router: Router) => {
   );
   router.get("/video/:id", VideoController.getVideo);
   router.post("/video/like", VideoController.likeVideo);
-  // router.post("/video/comment", requiresAuth(), VideoController.commentVideo);import { Router } from "express";
+  router.post("/video/comment", VideoController.commentVideo);
 };
