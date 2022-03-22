@@ -8,6 +8,6 @@ export const UserRouter = (router: Router) => {
   });
   router.get("/user/callback", UserController.loginAccount);
   router.get("/user/:email", UserController.getUserFromEmail);
-  router.put("/user", UserController.updateUser);
-  router.post("/user/follow", UserController.followUser);
+  router.put("/user", requiresAuth(), UserController.updateUser);
+  router.post("/user/follow", requiresAuth(), UserController.followUser);
 };
