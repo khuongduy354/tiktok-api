@@ -20,7 +20,7 @@ const createVideo = async (req: Request, res: Response) => {
     //pass DTO to create video
     await VideoDAO.addVideo(VideoDTO);
 
-    res.status(200).json({ message: " video updated  " });
+    res.status(200).json({ message: " video created  " });
   } catch (e) {
     res
       .status(500)

@@ -1,5 +1,4 @@
 import { mergeRows } from "./../helper/mergeRows";
-import { UserDAO } from ".";
 import { Pool } from "pg";
 import {
   addVideoProp,

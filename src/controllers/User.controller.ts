@@ -4,7 +4,7 @@ import {
   getUserFromEmailProp,
   updateUserProp,
 } from "./../types/UserTypes";
-import { UserDAO, VideoDAO } from "../repositories";
+import { UserDAO } from "../repositories";
 import { Request, Response } from "express";
 
 const loginAccount = async (req: Request, res: Response) => {

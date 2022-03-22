@@ -18,9 +18,19 @@ const createUser = async ({ email, name }: createUserProp) => {
 const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
   try {
     const pool = new Pool();
+    const followQuery = ` SELECT CASE WHEN useraccount.id = userfollow.user_id THEN userfollow.follower_id END AS "followers",
+     CASE WHEN useraccount.id = userfollow.follower_id THEN userfollow.user_id END AS "followings"
+     FROM useraccount LEFT JOIN userfollow ON useraccount.id = userfollow.user_id or useraccount.id = userfollow.follower_id
+     WHERE useraccount.email = '${email}'
+   ;`;
+    const followResult = await pool.query(followQuery);
+    mergeRows(followResult.rows, "followings");
+    mergeRows(followResult.rows, "followers");
+
     const query = `SELECT useraccount.*, video.id as video_id  from useraccount LEFT JOIN video ON useraccount.ID = video.author_id WHERE useraccount.email = '${email}' `;
     let result = (await pool.query(query)) as any;
     result = mergeRows(result.rows, "video_id");
+    result[0].followingState = followResult.rows[0];
     return result;
   } catch (e) {
     throw e;
