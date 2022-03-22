@@ -1,3 +1,4 @@
+import { mergeMultipleRows } from "./../helper/mergeMultipleRows";
 import { mergeRows } from "./../helper/mergeRows";
 import { Pool } from "pg";
 import {
@@ -71,11 +72,23 @@ const getVideo = async ({ id }: getVideoProp) => {
     const pool = new Pool();
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
-    const target = `video.*,userheart.user_id as likes,usercomment.content as comments`;
-    const query = `SELECT ${target} FROM video LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  where video.id = '${id}'`;
+    const target = `video.*, userheart.user_id as likes, usercomment.user_id as commenter_id,
+    usercomment.content as comment_content,usercomment.created_at`;
+    const query = `SELECT ${target} FROM video LEFT JOIN ${likesJoin} 
+     LEFT JOIN ${commentJoin}  where video.id = '${id}'`;
     let result = await pool.query(query);
-    result.rows = mergeRows(result.rows, "likes");
-    result.rows = mergeRows(result.rows, "comments");
+
+    const likes = mergeRows(result.rows, "likes")[0].likes;
+    const comments = mergeMultipleRows(result.rows, [
+      "commenter_id",
+      "comment_content",
+      "created_at",
+    ]);
+    delete result.rows[0].commenter_id;
+    delete result.rows[0].comment_content;
+    delete result.rows[0].created_at;
+    result.rows[0].comments = comments;
+    result.rows[0].likes = likes;
     return result;
   } catch (e) {
     throw e;
