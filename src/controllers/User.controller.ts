@@ -9,7 +9,7 @@ import { Request, Response } from "express";
 
 const loginAccount = async (req: Request, res: Response) => {
   try {
-    const { nickname: name, email } = req.oidc.user as any;
+    const { name, email } = req.body;
     const UserDTO: createUserProp = { name, email };
     await UserDAO.createUser(UserDTO);
     res.status(200).json({ message: "success" });
@@ -32,10 +32,7 @@ const getUserFromEmail = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   try {
-    const { email: oidcEmail } = req.oidc.user as any;
     const UserDTO: updateUserProp = req.body;
-    if (oidcEmail !== UserDTO.email)
-      return res.status(404).json({ error: "access denied " });
     await UserDAO.updateUser(UserDTO);
     res.status(200).json({ message: "updated  " });
   } catch (e) {

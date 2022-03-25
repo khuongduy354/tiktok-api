@@ -1,5 +1,4 @@
 import { VideoController } from "../controllers";
-import { requiresAuth } from "express-openid-connect";
 import multer from "multer";
 import { Router } from "express";
 

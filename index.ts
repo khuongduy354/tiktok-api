@@ -4,10 +4,12 @@ import { auth } from "express-openid-connect";
 import authConfig from "./src/config/0auth";
 import "dotenv/config";
 import router from "./src/routes";
+import cors from "cors";
 
 //Middlewares
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(auth(authConfig));
 app.use(express.urlencoded({ extended: true }));
 app.use("/tiktok/v1", router);
@@ -25,7 +27,7 @@ app.get("/isLoggedIn", async (req, res) => {
   res.send(req.oidc.isAuthenticated() ? "Logged in" : "Logged out");
 });
 app.get("/helloworld", async (req, res) => {
-  res.send("Hello");
+  res.json({ message: "Hello" });
 });
 
 app.listen(process.env.PORT, () => {

@@ -1,8 +1,5 @@
 # Important
 
-- comments include author
+- replace auth0 with firebase
 
 ## Less Important
-
-- (integrate auth0 with postman )
-- mergeRowsToOneRow, refractor mergeRows func
