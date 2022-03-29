@@ -113,4 +113,37 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
     throw e;
   }
 };
-export default { addVideo, getVideo, commentVideo, likeVideo, deleteVideo };
+const getFeed = async () => {
+  try {
+    const pool = new Pool();
+    const commentJoin = `usercomment on video.ID = usercomment.video_id `;
+    const likesJoin = `userheart on video.ID = userheart.video_id `;
+    const target = `video.*, userheart.user_id as likes, usercomment.user_id as commenter_id,
+    usercomment.content as comment_content,usercomment.created_at`;
+    const query = `SELECT ${target} FROM video LEFT JOIN ${likesJoin} 
+     LEFT JOIN ${commentJoin} `;
+    const result = await pool.query(query);
+    const likes = mergeRows(result.rows, "likes")[0].likes;
+    const comments = mergeMultipleRows(result.rows, [
+      "commenter_id",
+      "comment_content",
+      "created_at",
+    ]);
+    delete result.rows[0].commenter_id;
+    delete result.rows[0].comment_content;
+    delete result.rows[0].created_at;
+    result.rows[0].comments = comments;
+    result.rows[0].likes = likes;
+    return result.rows[0];
+  } catch (e) {
+    throw e;
+  }
+};
+export default {
+  getFeed,
+  addVideo,
+  getVideo,
+  commentVideo,
+  likeVideo,
+  deleteVideo,
+};

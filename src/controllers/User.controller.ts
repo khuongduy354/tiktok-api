@@ -7,7 +7,7 @@ import {
 import { UserDAO } from "../repositories";
 import { Request, Response } from "express";
 
-const loginAccount = async (req: Request, res: Response) => {
+const signupAccount = async (req: Request, res: Response) => {
   try {
     const { name, email } = req.body;
     const UserDTO: createUserProp = { name, email };
@@ -52,4 +52,9 @@ const followUser = async (req: Request, res: Response) => {
     throw e;
   }
 };
-export default { loginAccount, getUserFromEmail, updateUser, followUser };
+export default {
+  signupAccount,
+  getUserFromEmail,
+  updateUser,
+  followUser,
+};

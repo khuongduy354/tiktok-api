@@ -1,5 +1,5 @@
 # Important
 
-- replace auth0 with firebase
+- implement password with bcrypt
 
 ## Less Important

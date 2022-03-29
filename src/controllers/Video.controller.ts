@@ -10,13 +10,12 @@ import { UserDAO, VideoDAO } from "../repositories/";
 const createVideo = async (req: Request, res: Response) => {
   try {
     const VideoDTO: addVideoProp = req.body;
-
-    //insert userID, videoName to DTO
-    const { email } = req.oidc.user as any;
+    const { email } = req.body;
+    console.log(email);
     const user = await UserDAO.getUserFromEmail({ email });
-    VideoDTO.author_id = user.rows[0].id;
+    console.log(user);
+    VideoDTO.author_id = user[0].id;
     VideoDTO.video_location = req.file?.filename as any;
-
     //pass DTO to create video
     await VideoDAO.addVideo(VideoDTO);
 
@@ -75,4 +74,33 @@ const deleteVideo = async (req: Request, res: Response) => {
   }
 };
 
-export default { createVideo, getVideo, likeVideo, commentVideo, deleteVideo };
+const forYouFeed = async (req: Request, res: Response) => {
+  try {
+    const { user_id, video_id }: commentVideoProp = req.body;
+    await VideoDAO.deleteVideo({ user_id, video_id });
+    res.status(200).json({ message: `video deleted ` });
+  } catch (e) {
+    res
+      .status(500)
+      .json({ error: "cannot delete  video", message: "unsuccess" });
+    throw e;
+  }
+};
+const allFeed = async (req: Request, res: Response) => {
+  try {
+    const result = await VideoDAO.getFeed();
+    res.status(200).json({ message: `feed generated`, feed: result });
+  } catch (e) {
+    res.status(500).json({ error: "cannot find feed", message: "unsuccess" });
+    throw e;
+  }
+};
+
+export default {
+  createVideo,
+  getVideo,
+  likeVideo,
+  commentVideo,
+  deleteVideo,
+  allFeed,
+};
