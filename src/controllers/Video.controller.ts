@@ -11,9 +11,7 @@ const createVideo = async (req: Request, res: Response) => {
   try {
     const VideoDTO: addVideoProp = req.body;
     const { email } = req.body;
-    console.log(email);
     const user = await UserDAO.getUserFromEmail({ email });
-    console.log(user);
     VideoDTO.author_id = user[0].id;
     VideoDTO.video_location = req.file?.filename as any;
     //pass DTO to create video

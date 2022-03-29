@@ -123,18 +123,38 @@ const getFeed = async () => {
     const query = `SELECT ${target} FROM video LEFT JOIN ${likesJoin} 
      LEFT JOIN ${commentJoin} `;
     const result = await pool.query(query);
-    const likes = mergeRows(result.rows, "likes")[0].likes;
-    const comments = mergeMultipleRows(result.rows, [
-      "commenter_id",
-      "comment_content",
-      "created_at",
-    ]);
-    delete result.rows[0].commenter_id;
-    delete result.rows[0].comment_content;
-    delete result.rows[0].created_at;
-    result.rows[0].comments = comments;
-    result.rows[0].likes = likes;
-    return result.rows[0];
+
+    const idSet = new Set();
+    result.rows.forEach((row) => {
+      if (!idSet.has(row.id)) {
+        idSet.add(row.id);
+      }
+    });
+
+    //@ts-ignore
+    let real_results = [];
+    idSet.forEach((_id) => {
+      let real_result = result.rows.filter((row) => row.id == _id)[0];
+      const target = result.rows.filter((row) => row.id == _id);
+      const comments = mergeMultipleRows(target, [
+        "commenter_id",
+        "comment_content",
+        "created_at",
+      ]);
+      const likes = [...new Set(mergeRows(target, "likes")[0].likes)];
+
+      //@ts-ignore
+      real_result.comments = comments;
+      real_result.likes = likes;
+
+      delete real_result.commenter_id;
+      delete real_result.comment_content;
+      delete real_result.created_at;
+      real_results.push(real_result);
+    });
+
+    //@ts-ignore
+    return real_results;
   } catch (e) {
     throw e;
   }
