@@ -8,6 +8,7 @@ import {
   getVideoProp,
   likeVideoProp,
 } from "./../types/VideoTypes";
+import { UserDAO } from ".";
 const addVideo = async ({
   author_id,
   title = "",
@@ -107,16 +108,19 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
 const getFeed = async () => {
   try {
     const pool = new Pool();
+    const userJoin = ` useraccount on useraccount.id = video.author_id `;
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
     const target = `
       video.*,
+      useraccount.name as author_name, 
+      useraccount.email as author_email,
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (usercomment.user_id || '//' || content || '// ' || usercomment.created_at) as comments 
       `;
     const query = `SELECT ${target} FROM 
-    video LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin} 
-    GROUP BY video.id
+    video LEFT JOIN ${likesJoin} LEFT JOIN ${userJoin} LEFT JOIN ${commentJoin} 
+    GROUP BY video.id,author_name,author_email
     LIMIT 20`;
     const result = await pool.query(query);
 

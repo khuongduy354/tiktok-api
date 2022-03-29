@@ -36,6 +36,17 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
     throw e;
   }
 };
+const getUserFromId = async (id: number) => {
+  try {
+    const pool = new Pool();
+    const query = ` SELECT email, name FROM useraccount WHERE useraccount.user_id = '${id}'
+   ;`;
+    const result = await pool.query(query);
+    return result.rows[0];
+  } catch (e) {
+    throw e;
+  }
+};
 const updateUser = async ({
   email,
   name = "",
@@ -77,4 +88,10 @@ const followUser = async ({ user_id, follower_id }: followUserProp) => {
     throw e;
   }
 };
-export default { getUserFromEmail, createUser, updateUser, followUser };
+export default {
+  getUserFromEmail,
+  getUserFromId,
+  createUser,
+  updateUser,
+  followUser,
+};
