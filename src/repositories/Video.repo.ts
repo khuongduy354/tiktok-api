@@ -10,7 +10,7 @@ import {
 } from "./../types/VideoTypes";
 import { UserDAO } from ".";
 const addVideo = async ({
-  author_id,
+  author_email,
   title = "",
   video_location,
   _public = true,
@@ -18,6 +18,9 @@ const addVideo = async ({
   try {
     const created_at = new Date().toISOString().slice(0, 10);
     const pool = new Pool();
+    const userQuery = `SELECT id from useraccount where email = '${author_email}'`;
+    const userResult = await pool.query(userQuery);
+    const author_id = userResult.rows[0].id;
 
     const query = `INSERT INTO video  
   (author_id,title,public,views,video_link,published_at) values(

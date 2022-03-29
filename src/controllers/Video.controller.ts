@@ -6,18 +6,34 @@ import {
 } from "./../types/VideoTypes";
 import { Request, Response } from "express";
 import { UserDAO, VideoDAO } from "../repositories/";
-
+import { cloudinary } from "../config/cloudinary";
+import fs from "fs";
 const createVideo = async (req: Request, res: Response) => {
   try {
     const VideoDTO: addVideoProp = req.body;
-    const { email } = req.body;
-    const user = await UserDAO.getUserFromEmail({ email });
-    VideoDTO.author_id = user[0].id;
-    VideoDTO.video_location = req.file?.filename as any;
-    //pass DTO to create video
-    await VideoDAO.addVideo(VideoDTO);
+    const { email, _public, title } = req.body;
+    VideoDTO.author_email = email;
+    VideoDTO._public = _public;
+    VideoDTO.title = title;
 
-    res.status(200).json({ message: " video created  " });
+    const file_name = req.file?.filename;
+    const path = "./public/videos/" + file_name;
+    cloudinary.uploader.upload(
+      path,
+      {
+        resource_type: "video",
+      },
+      (err, result) => {
+        if (err) throw Error("Cant connect to Cloudinary");
+        if (result) {
+          VideoDTO.video_location = result.secure_url;
+          if (fs.existsSync(path)) fs.unlinkSync(path);
+          //pass DTO to create video
+          VideoDAO.addVideo(VideoDTO);
+          res.status(200).json({ message: " video created  " });
+        }
+      }
+    );
   } catch (e) {
     res
       .status(500)
