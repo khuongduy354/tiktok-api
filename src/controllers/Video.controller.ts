@@ -11,10 +11,9 @@ import fs from "fs";
 const createVideo = async (req: Request, res: Response) => {
   try {
     const VideoDTO: addVideoProp = req.body;
-    const { email, _public, title } = req.body;
-    VideoDTO.author_email = email;
-    VideoDTO._public = _public;
-    VideoDTO.title = title;
+    const { email, title } = req.body;
+    VideoDTO.author_email = JSON.parse(email);
+    VideoDTO.title = JSON.parse(title);
 
     const file_name = req.file?.filename;
     const path = "./public/videos/" + file_name;

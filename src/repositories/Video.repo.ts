@@ -18,7 +18,8 @@ const addVideo = async ({
   try {
     const created_at = new Date().toISOString().slice(0, 10);
     const pool = new Pool();
-    const userQuery = `SELECT id from useraccount where email = '${author_email}'`;
+
+    const userQuery = `SELECT id from useraccount where email = '${author_email}' `;
     const userResult = await pool.query(userQuery);
     const author_id = userResult.rows[0].id;
 
