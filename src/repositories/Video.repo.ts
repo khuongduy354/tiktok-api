@@ -1,3 +1,4 @@
+import { parseComment } from "./../helper/parseComment";
 import { mergeMultipleRows } from "./../helper/mergeMultipleRows";
 import { mergeRows } from "./../helper/mergeRows";
 import { Pool } from "pg";
@@ -79,12 +80,21 @@ const getVideo = async ({ id }: getVideoProp) => {
     const likesJoin = `userheart on video.ID = userheart.video_id `;
     const target = `video.*, 
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
-      ARRAY_AGG (usercomment.user_id || '//' || content || '//' || usercomment.created_at) as comments`;
+      ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments`;
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
+    LEFT JOIN useraccount on useraccount.id = usercomment.user_id
     WHERE video.id = '${id}'
     GROUP BY video.id `;
+
     const result = await pool.query(query);
+    result.rows[0].comments = result.rows[0].comments.filter(
+      (comment: any) => comment !== null
+    );
+    result.rows[0].comments = parseComment(result.rows[0].comments);
+    result.rows[0].hearts = result.rows[0].hearts.filter(
+      (heart: any) => heart !== null
+    );
     return result;
   } catch (e) {
     throw e;
