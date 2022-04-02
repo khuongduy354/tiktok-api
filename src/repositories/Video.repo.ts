@@ -122,29 +122,24 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
 const getFeed = async () => {
   try {
     const pool = new Pool();
-    const userJoin = ` useraccount on (useraccount.id = video.author_id )  `;
-    const commentJoin = `usercomment on (video.ID = usercomment.video_id or useraccount.id = usercomment.user_id) `;
+    const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
-    const target = `
-      video.*,
-      useraccount.name as author_name, 
-      useraccount.email as author_email,
+    const target = `video.*, 
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
-      ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments
-      `;
+      ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments`;
+    const query = `SELECT ${target} FROM video 
+    LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
+    LEFT JOIN useraccount on useraccount.id = usercomment.user_id
+    GROUP BY video.id
+    LIMIT 20 
+     `;
 
-    const query = `SELECT ${target} FROM 
-    video LEFT JOIN ${likesJoin} LEFT JOIN ${userJoin} LEFT JOIN ${commentJoin} 
-    GROUP BY video.id,author_name,author_email
-    LIMIT 20`;
     const result = await pool.query(query);
-
     for (let row of result.rows) {
       row.comments = row.comments.filter((comment: any) => comment !== null);
       row.hearts = row.hearts.filter((heart: any) => heart !== null);
       row.comments = parseComment(row.comments);
     }
-
     return result.rows;
   } catch (e) {
     throw e;
