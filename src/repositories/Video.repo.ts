@@ -130,7 +130,7 @@ const getFeed = async () => {
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount on useraccount.id = usercomment.user_id
-    GROUP BY video.id
+    GROUP  BY video.id
     LIMIT 20 
      `;
 
