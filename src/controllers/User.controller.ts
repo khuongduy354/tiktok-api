@@ -1,3 +1,4 @@
+import fs from "fs";
 import {
   createUserProp,
   followUserProp,
@@ -6,6 +7,7 @@ import {
 } from "./../types/UserTypes";
 import { UserDAO } from "../repositories";
 import { Request, Response } from "express";
+import { cloudinary } from "../config/cloudinary";
 
 const signupAccount = async (req: Request, res: Response) => {
   try {
@@ -32,11 +34,33 @@ const getUserFromEmail = async (req: Request, res: Response) => {
 
 const updateUser = async (req: Request, res: Response) => {
   try {
-    const UserDTO: updateUserProp = req.body;
-    await UserDAO.updateUser(UserDTO);
-    res.status(200).json({ message: "updated  " });
+    if (req.file === undefined) {
+      const UserDTO: updateUserProp = req.body;
+      const user = await UserDAO.updateUser(UserDTO);
+
+      return res.status(200).json({ message: "updated ", user: user });
+    }
+    const UserDTO = req.body;
+    const file_name = req.file.filename;
+    const path = "./public/avatar/" + file_name;
+    cloudinary.uploader.upload(
+      path,
+      {
+        resource_type: "image",
+      },
+      async (err, result) => {
+        if (err) throw Error("Cant connect to Cloudinary");
+        if (result) {
+          UserDTO.avatar = result.secure_url;
+          if (fs.existsSync(path)) fs.unlinkSync(path);
+          //pass DTO to create video
+          const user = await UserDAO.updateUser(UserDTO);
+          res.status(200).json({ message: " user updated  ", user: user });
+        }
+      }
+    );
   } catch (e) {
-    res.status(500).json({ error: "cannot find", message: "unsuccess" });
+    res.status(500).json({ error: "cannot update", message: "unsuccess" });
     throw e;
   }
 };

@@ -65,6 +65,9 @@ const updateUser = async ({
     avatar = '${avatar}'
     WHERE email = '${email}'`;
     await pool.query(query);
+    const userQuery = `SELECT * from useraccount where email='${email}'`;
+    const result = await pool.query(userQuery);
+    return result.rows[0];
   } catch (e) {
     throw e;
   }

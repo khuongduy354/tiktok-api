@@ -1,7 +1,9 @@
 import { Router } from "express";
+import multer from "multer";
 import { UserController } from "../controllers";
 import { checkMailMiddleware } from "./checkEmailMiddleware";
 
+const upload = multer({ dest: "public/avatar" });
 export const UserRouter = (router: Router) => {
   router.post(
     "/user/signup",
@@ -13,6 +15,6 @@ export const UserRouter = (router: Router) => {
     checkMailMiddleware,
     UserController.getUserFromEmail
   );
-  router.put("/user", UserController.updateUser);
+  router.put("/user", upload.single("avatar"), UserController.updateUser);
   router.post("/user/follow", UserController.followUser);
 };
