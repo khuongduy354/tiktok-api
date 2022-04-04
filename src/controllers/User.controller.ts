@@ -35,15 +35,22 @@ const getUserFromEmail = async (req: Request, res: Response) => {
 const updateUser = async (req: Request, res: Response) => {
   try {
     if (req.file === undefined) {
-      const UserDTO: updateUserProp = req.body;
+      let UserDTO = req.body;
+      UserDTO = Object.keys(UserDTO).map((key) => {
+        JSON.parse(UserDTO[key]);
+      });
       const user = await UserDAO.updateUser(UserDTO);
 
       return res.status(200).json({ message: "updated ", user: user });
     }
-    const UserDTO = req.body;
+
+    let UserDTO = req.body;
+    for (let prop in UserDTO) {
+      UserDTO[prop] = JSON.parse(UserDTO[prop]);
+    }
     const file_name = req.file.filename;
     const path = "./public/avatar/" + file_name;
-    cloudinary.uploader.upload(
+    await cloudinary.uploader.upload(
       path,
       {
         resource_type: "image",
