@@ -17,10 +17,11 @@ const createVideo = async (req: Request, res: Response) => {
 
     const file_name = req.file?.filename;
     const path = "./public/videos/" + file_name;
+    const type = req.file?.mimetype.includes("video") ? "video" : "image";
     cloudinary.uploader.upload(
       path,
       {
-        resource_type: "video",
+        resource_type: type,
       },
       (err, result) => {
         if (err) throw Error("Cant connect to Cloudinary");
