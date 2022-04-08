@@ -6,15 +6,44 @@ import {
   updateUserProp,
 } from "./../types/UserTypes";
 import { UserDAO } from "../repositories";
+import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { cloudinary } from "../config/cloudinary";
 
 const signupAccount = async (req: Request, res: Response) => {
   try {
-    const { name, email } = req.body;
-    const UserDTO: createUserProp = { name, email };
+    const { name, email, password } = req.body;
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt
+      .hash(password, saltRounds)
+      .catch((e) => {
+        throw "Error";
+      });
+    const UserDTO: createUserProp = { name, email, password, hashedPassword };
     await UserDAO.createUser(UserDTO);
     res.status(200).json({ message: "success" });
+  } catch (e) {
+    res.status(500).json({ error: "cannot create user", message: "unsuccess" });
+    throw e;
+  }
+};
+const signInAccount = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt
+      .hash(password, saltRounds)
+      .catch((e) => {
+        throw "Error";
+      });
+    const isMatch = await bcrypt.compare(password, hashedPassword);
+    if (!isMatch) {
+      return res.status(404).json({ error: "Not matching password" });
+    }
+    const user = await UserDAO.getUserWithAuth({
+      email,
+    });
+    res.status(200).json({ message: "success", user });
   } catch (e) {
     res.status(500).json({ error: "cannot create user", message: "unsuccess" });
     throw e;
@@ -88,4 +117,5 @@ export default {
   getUserFromEmail,
   updateUser,
   followUser,
+  signInAccount,
 };

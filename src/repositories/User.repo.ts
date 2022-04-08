@@ -6,10 +6,15 @@ import {
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
 import { mergeRows } from "../helper/mergeRows";
-const createUser = async ({ email, name }: createUserProp) => {
+const createUser = async ({
+  email,
+  name = "",
+  password,
+  hashedPassword,
+}: createUserProp) => {
   try {
     const pool = new Pool();
-    const query = `INSERT INTO useraccount (email,name) values ('${email}', '${name}');`;
+    const query = `INSERT INTO useraccount (email,name,phone_number,password) values ('${email}', '${name}','${password}','${hashedPassword}');`;
     await pool.query(query);
   } catch (e) {
     throw e;
@@ -32,6 +37,17 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
     result = mergeRows(result.rows, "video_id");
     result[0].followingState = followResult.rows[0];
     return result;
+  } catch (e) {
+    throw e;
+  }
+};
+const getUserWithAuth = async ({ email }: any) => {
+  try {
+    const pool = new Pool();
+    const query = `SELECT useraccount.*, video.id as video_id  from useraccount LEFT JOIN video ON useraccount.ID = video.author_id 
+    WHERE useraccount.email = '${email}'`;
+    const result = (await pool.query(query)) as any;
+    return result.rows[0];
   } catch (e) {
     throw e;
   }
@@ -97,4 +113,5 @@ export default {
   createUser,
   updateUser,
   followUser,
+  getUserWithAuth,
 };
