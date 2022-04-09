@@ -23,13 +23,13 @@ const createVideo = async (req: Request, res: Response) => {
       {
         resource_type: type,
       },
-      (err, result) => {
+      async(err, result) => {
         if (err) throw Error("Cant connect to Cloudinary");
         if (result) {
           VideoDTO.video_location = result.secure_url;
           if (fs.existsSync(path)) fs.unlinkSync(path);
           //pass DTO to create video
-          VideoDAO.addVideo(VideoDTO);
+          await VideoDAO.addVideo(VideoDTO);
           res.status(200).json({ message: " video created  " });
         }
       }

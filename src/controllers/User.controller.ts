@@ -53,8 +53,8 @@ const signInAccount = async (req: Request, res: Response) => {
 const getUserFromEmail = async (req: Request, res: Response) => {
   try {
     const UserDTO: getUserFromEmailProp = req.params as any;
-    const result = await UserDAO.getUserFromEmail(UserDTO);
-    res.status(200).json({ message: "success", user: result[0] });
+    const user = await UserDAO.getUserFromEmail(UserDTO);
+    res.status(200).json({ message: "success", user });
   } catch (e) {
     res.status(500).json({ error: "cannot find" });
     throw e;

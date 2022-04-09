@@ -6,6 +6,7 @@ import {
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
 import { mergeRows } from "../helper/mergeRows";
+import { mergeMultipleRows } from "../helper/mergeMultipleRows";
 const createUser = async ({
   email,
   name = "",
@@ -26,17 +27,24 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
     const followQuery = ` SELECT CASE WHEN useraccount.id = userfollow.user_id THEN userfollow.follower_id END AS "followers",
      CASE WHEN useraccount.id = userfollow.follower_id THEN userfollow.user_id END AS "followings"
      FROM useraccount LEFT JOIN userfollow ON useraccount.id = userfollow.user_id or useraccount.id = userfollow.follower_id
+     LEFT JOIN video ON useraccount.id = video.author_id
      WHERE useraccount.email = '${email}'
    ;`;
     const followResult = await pool.query(followQuery);
     mergeRows(followResult.rows, "followings");
     mergeRows(followResult.rows, "followers");
 
-    const query = `SELECT useraccount.*, video.id as video_id  from useraccount LEFT JOIN video ON useraccount.ID = video.author_id WHERE useraccount.email = '${email}' `;
+    const query = `SELECT useraccount.*, video.id as video_id ,video.video_link as uri 
+    FROM useraccount LEFT JOIN video ON useraccount.ID = video.author_id
+    WHERE useraccount.email = '${email}' `;
     let result = (await pool.query(query)) as any;
-    result = mergeRows(result.rows, "video_id");
-    result[0].followingState = followResult.rows[0];
-    return result;
+    result.rows[0].followingState = followResult.rows[0];
+    result.rows[0].videos = mergeMultipleRows(result.rows, ["video_id", "uri"]);
+    result.rows.forEach((row: any) => {
+      delete row.video_id;
+      delete row.uri;
+    });
+    return result.rows[0];
   } catch (e) {
     throw e;
   }
