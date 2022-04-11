@@ -127,7 +127,9 @@ const getFeed = async (queryId = -1) => {
     const target = `video.*,
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (useraccount.email || '$$' || useraccount.avatar || '$$' || content ) as comments,
-      CASE WHEN video.author_id = useraccount.id THEN useraccount.avatar END AS "author_avatar" `;
+      CASE WHEN video.author_id = useraccount.id THEN useraccount.avatar END AS "author_avatar",
+      CASE WHEN video.author_id = useraccount.id THEN useraccount.email END AS "author_email"
+       `;
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount on useraccount.id = usercomment.user_id
