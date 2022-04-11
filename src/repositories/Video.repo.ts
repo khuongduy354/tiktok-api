@@ -85,7 +85,6 @@ const getVideo = async ({ id }: getVideoProp) => {
     LEFT JOIN useraccount on useraccount.id = usercomment.user_id
     WHERE video.id = ${id}
     GROUP BY video.id `;
-    console.log(id);
     const result = await pool.query(query);
     result.rows[0].comments = result.rows[0].comments.filter(
       (comment: any) => comment !== null
@@ -125,18 +124,14 @@ const getFeed = async (queryId = -1) => {
     const pool = new Pool();
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
-    const target = `video.*, 
+    const target = `video.*,
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
-      ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments`;
-
-    const emailCondition =
-      queryId !== -1 ? `WHERE video.author_id = '${queryId}'` : "";
-
-    const query = `SELECT  ${target} FROM video 
+      ARRAY_AGG (useraccount.email || '$$' || useraccount.avatar || '$$' || content ) as comments,
+      CASE WHEN video.author_id = useraccount.id THEN useraccount.avatar END AS "author_avatar" `;
+    const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
-    LEFT JOIN useraccount on useraccount.id = usercomment.user_id  
-    ${emailCondition}
-    GROUP  BY video.id
+    LEFT JOIN useraccount on useraccount.id = usercomment.user_id
+    GROUP BY video.id,useraccount.id
     ORDER BY RANDOM()
     LIMIT 20 
      `;
@@ -147,6 +142,7 @@ const getFeed = async (queryId = -1) => {
       row.hearts = row.hearts.filter((heart: any) => heart !== null);
       row.comments = parseComment(row.comments);
     }
+
     return result.rows;
   } catch (e) {
     throw e;
