@@ -122,21 +122,23 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
 const getFeed = async (queryId = -1) => {
   try {
     const pool = new Pool();
+
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
     const target = `video.*,
+    u2.email as author_email,u2.avatar as author_avatar,
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
-      ARRAY_AGG (useraccount.email || '$$' || useraccount.avatar || '$$' || content ) as comments,
-      CASE WHEN video.author_id = useraccount.id THEN useraccount.avatar END AS "author_avatar",
-      CASE WHEN video.author_id = useraccount.id THEN useraccount.email END AS "author_email"
+      ARRAY_AGG (u1.email || '$$' || u1.avatar || '$$' || content ) as comments
        `;
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
-    LEFT JOIN useraccount on useraccount.id = usercomment.user_id
-    GROUP BY video.id,useraccount.id
+    LEFT JOIN useraccount u1 on u1.id = usercomment.user_id
+    LEFT JOIN useraccount u2 on u2.id = video.author_id 
+    GROUP BY video.id,u2.id
     ORDER BY RANDOM()
     LIMIT 20 
      `;
+    console.log(query);
 
     const result = await pool.query(query);
     for (let row of result.rows) {
