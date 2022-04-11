@@ -23,10 +23,10 @@ const createVideo = async (req: Request, res: Response) => {
       {
         resource_type: type,
       },
-      async(err, result) => {
+      async (err, result) => {
         if (err) throw Error("Cant connect to Cloudinary");
         if (result) {
-          VideoDTO.video_location = result.secure_url;
+          VideoDTO.video_location = result.url;
           if (fs.existsSync(path)) fs.unlinkSync(path);
           //pass DTO to create video
           await VideoDAO.addVideo(VideoDTO);
@@ -78,8 +78,12 @@ const commentVideo = async (req: Request, res: Response) => {
 const deleteVideo = async (req: Request, res: Response) => {
   try {
     const { user_id, video_id }: commentVideoProp = req.body;
-    await VideoDAO.deleteVideo({ user_id, video_id });
-    res.status(200).json({ message: `video deleted ` });
+    const isDeleted = await VideoDAO.deleteVideo({ user_id, video_id });
+    if (isDeleted) {
+      res.status(200).json({ message: `video deleted ` });
+    } else {
+      throw Error;
+    }
   } catch (e) {
     res
       .status(500)

@@ -87,7 +87,7 @@ const updateUser = async (req: Request, res: Response) => {
       async (err, result) => {
         if (err) throw Error("Cant connect to Cloudinary");
         if (result) {
-          UserDTO.avatar = result.secure_url;
+          UserDTO.avatar = result.url;
           if (fs.existsSync(path)) fs.unlinkSync(path);
           //pass DTO to create video
           const user = await UserDAO.updateUser(UserDTO);

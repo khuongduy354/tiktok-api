@@ -83,9 +83,9 @@ const getVideo = async ({ id }: getVideoProp) => {
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount on useraccount.id = usercomment.user_id
-    WHERE video.id = '${id}'
+    WHERE video.id = ${id}
     GROUP BY video.id `;
-
+    console.log(id);
     const result = await pool.query(query);
     result.rows[0].comments = result.rows[0].comments.filter(
       (comment: any) => comment !== null
@@ -105,6 +105,7 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
     const pool = new Pool();
     const videoQuery = `SELECT * FROM video where ID = ${video_id}`;
     const video = await pool.query(videoQuery);
+
     if (video.rows[0].author_id !== user_id) {
       throw Error("Access denied");
     }
@@ -114,11 +115,12 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
     await pool.query(deleteHeart);
     await pool.query(deleteComment);
     await pool.query(deleteVideo);
+    return true;
   } catch (e) {
-    throw e;
+    return false;
   }
 };
-const getFeed = async () => {
+const getFeed = async (queryId = -1) => {
   try {
     const pool = new Pool();
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
@@ -126,10 +128,16 @@ const getFeed = async () => {
     const target = `video.*, 
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments`;
-    const query = `SELECT ${target} FROM video 
+
+    const emailCondition =
+      queryId !== -1 ? `WHERE video.author_id = '${queryId}'` : "";
+
+    const query = `SELECT  ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
-    LEFT JOIN useraccount on useraccount.id = usercomment.user_id
+    LEFT JOIN useraccount on useraccount.id = usercomment.user_id  
+    ${emailCondition}
     GROUP  BY video.id
+    ORDER BY RANDOM()
     LIMIT 20 
      `;
 
