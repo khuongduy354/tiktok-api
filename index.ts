@@ -25,3 +25,11 @@ app.get("/helloworld", async (req, res) => {
 app.listen(process.env.PORT, () => {
   console.log(`Running on ${process.env.PORT}`);
 });
+
+process.on("unhandledRejection", (reason: Error, promise: Promise<any>) => {
+  throw reason;
+});
+
+process.on("uncaughtException", (error: Error) => {
+  process.exit(1);
+});
