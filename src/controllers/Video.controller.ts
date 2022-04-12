@@ -38,7 +38,7 @@ const createVideo = async (req: Request, res: Response) => {
         .json({ error: "cannot create video", message: "unsuccess" });
     }
   } catch (e) {
-    return res
+    res
       .status(500)
       .json({ error: "cannot create video", message: "unsuccess" });
     throw e;
