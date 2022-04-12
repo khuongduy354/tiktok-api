@@ -130,10 +130,12 @@ const getFeed = async (queryId = -1) => {
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (u1.email || '$$' || u1.avatar || '$$' || content ) as comments
        `;
+    const emailCondition = queryId !== -1 ? `WHERE u2.id  = '${queryId}'` : "";
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount u1 on u1.id = usercomment.user_id
     LEFT JOIN useraccount u2 on u2.id = video.author_id 
+    ${emailCondition}
     GROUP BY video.id,u2.id
     ORDER BY RANDOM()
     LIMIT 20 
