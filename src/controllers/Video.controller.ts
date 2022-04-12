@@ -33,11 +33,13 @@ const createVideo = async (req: Request, res: Response) => {
         })
         .end(bufferFile);
     } else {
+      console.log("no buffer");
       return res
         .status(500)
         .json({ error: "cannot create video", message: "unsuccess" });
     }
   } catch (e) {
+    console.log(e);
     res
       .status(500)
       .json({ error: "cannot create video", message: "unsuccess" });
