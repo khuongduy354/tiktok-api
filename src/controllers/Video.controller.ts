@@ -5,9 +5,8 @@ import {
   likeVideoProp,
 } from "./../types/VideoTypes";
 import { Request, Response } from "express";
-import { UserDAO, VideoDAO } from "../repositories/";
+import { VideoDAO } from "../repositories/";
 import { cloudinary } from "../config/cloudinary";
-import fs from "fs";
 const createVideo = async (req: Request, res: Response) => {
   try {
     const VideoDTO: addVideoProp = req.body;
@@ -15,32 +14,31 @@ const createVideo = async (req: Request, res: Response) => {
     VideoDTO.author_email = JSON.parse(email);
     VideoDTO.title = JSON.parse(title);
 
-    const file_name = req.file?.filename;
-    const path = "./public/videos/" + file_name;
-    const type = req.file?.mimetype.includes("video") ? "video" : "image";
-    await cloudinary.uploader.upload(
-      path,
-      {
-        resource_type: type,
-      },
-      async (err, result) => {
-        if (err) {
-          console.log(err);
-          return res
-            .status(500)
-            .json({ error: "cannot create video", message: "unsuccess" });
-        }
-        if (result) {
-          VideoDTO.video_location = result.url;
-          if (fs.existsSync(path)) fs.unlinkSync(path);
-          //pass DTO to create video
-          await VideoDAO.addVideo(VideoDTO);
-          res.status(200).json({ message: " video created  " });
-        }
-      }
-    );
+    const bufferFile = req.file?.buffer;
+    // const type = req.file?.mimetype.includes("video") ? "video" : "image";
+    if (bufferFile) {
+      cloudinary.uploader
+        .upload_stream(async (err, result) => {
+          if (err) {
+            console.log(err);
+            return res
+              .status(500)
+              .json({ error: "cannot create video", message: "unsuccess" });
+          }
+          if (result) {
+            VideoDTO.video_location = result.url;
+            await VideoDAO.addVideo(VideoDTO);
+            return res.status(200).json({ message: " video created  " });
+          }
+        })
+        .end(bufferFile);
+    } else {
+      return res
+        .status(500)
+        .json({ error: "cannot create video", message: "unsuccess" });
+    }
   } catch (e) {
-    res
+    return res
       .status(500)
       .json({ error: "cannot create video", message: "unsuccess" });
     throw e;

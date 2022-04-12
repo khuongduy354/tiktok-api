@@ -90,7 +90,6 @@ const updateUser = async ({
     name = '${name}',
     age = ${age},
     address = '${address}',
-    phone_number = '${phone_number}',
     avatar = '${avatar}'
     WHERE email = '${email}'`;
     await pool.query(query);

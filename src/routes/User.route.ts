@@ -2,8 +2,8 @@ import { Router } from "express";
 import multer from "multer";
 import { UserController } from "../controllers";
 import { checkMailMiddleware } from "./checkEmailMiddleware";
-
-const upload = multer({ dest: "public/avatar" });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 export const UserRouter = (router: Router) => {
   router.post(
     "/user/signup",

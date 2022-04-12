@@ -77,29 +77,31 @@ const updateUser = async (req: Request, res: Response) => {
     for (let prop in UserDTO) {
       UserDTO[prop] = JSON.parse(UserDTO[prop]);
     }
-    const file_name = req.file.filename;
-    const path = "./public/avatar/" + file_name;
-    await cloudinary.uploader.upload(
-      path,
-      {
-        resource_type: "image",
-      },
-      async (err, result) => {
-        if (err) {
-          console.log(err);
-          return res
-            .status(500)
-            .json({ error: "cannot create video", message: "unsuccess" });
-        }
-        if (result) {
-          UserDTO.avatar = result.url;
-          if (fs.existsSync(path)) fs.unlinkSync(path);
-          //pass DTO to create video
-          const user = await UserDAO.updateUser(UserDTO);
-          res.status(200).json({ message: " user updated  ", user: user });
-        }
-      }
-    );
+
+    const bufferFile = req.file?.buffer;
+    if (bufferFile) {
+      cloudinary.uploader
+        .upload_stream(async (err, result) => {
+          if (err) {
+            console.log(err);
+            return res
+              .status(500)
+              .json({ error: "cannot create video", message: "unsuccess" });
+          }
+          if (result) {
+            UserDTO.avatar = result.url;
+            const user = await UserDAO.updateUser(UserDTO);
+            return res
+              .status(200)
+              .json({ message: " user updated  ", user: user });
+          }
+        })
+        .end(bufferFile);
+    } else {
+      return res
+        .status(500)
+        .json({ error: "cannot update", message: "unsuccess" });
+    }
   } catch (e) {
     res.status(500).json({ error: "cannot update", message: "unsuccess" });
     throw e;
