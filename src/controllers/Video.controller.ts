@@ -24,7 +24,12 @@ const createVideo = async (req: Request, res: Response) => {
         resource_type: type,
       },
       async (err, result) => {
-        if (err) throw Error("Cant connect to Cloudinary");
+        if (err) {
+          console.log(err);
+          return res
+            .status(500)
+            .json({ error: "cannot create video", message: "unsuccess" });
+        }
         if (result) {
           VideoDTO.video_location = result.url;
           if (fs.existsSync(path)) fs.unlinkSync(path);

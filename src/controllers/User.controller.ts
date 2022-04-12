@@ -85,7 +85,12 @@ const updateUser = async (req: Request, res: Response) => {
         resource_type: "image",
       },
       async (err, result) => {
-        if (err) throw Error("Cant connect to Cloudinary");
+        if (err) {
+          console.log(err);
+          return res
+            .status(500)
+            .json({ error: "cannot create video", message: "unsuccess" });
+        }
         if (result) {
           UserDTO.avatar = result.url;
           if (fs.existsSync(path)) fs.unlinkSync(path);
