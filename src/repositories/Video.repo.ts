@@ -138,7 +138,6 @@ const getFeed = async (queryId = -1) => {
     ORDER BY RANDOM()
     LIMIT 20 
      `;
-    console.log(query);
 
     const result = await pool.query(query);
     for (let row of result.rows) {
