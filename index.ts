@@ -31,5 +31,6 @@ process.on("unhandledRejection", (reason: Error, promise: Promise<any>) => {
 });
 
 process.on("uncaughtException", (error: Error) => {
+  console.log(error);
   process.exit(1);
 });
