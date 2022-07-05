@@ -111,6 +111,7 @@ const forYouFeed = async (req: Request, res: Response) => {
 };
 const allFeed = async (req: Request, res: Response) => {
   try {
+    console.log("hit");
     const result = await VideoDAO.getFeed();
     res.status(200).json({ message: `feed generated`, feed: result });
   } catch (e) {

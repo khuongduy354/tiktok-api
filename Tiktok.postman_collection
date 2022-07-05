@@ -1,0 +1,1005 @@
+{
+	"info": {
+		"_postman_id": "e30cf527-afb5-43ce-8453-ec3f938f542f",
+		"name": "TIktok",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Signup User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"1234adskfaj\",\r\n    \"email\":\"as@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/signup",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/khuongduy354@gmail.com",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"khuongduy354@gmail.com"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get user ",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/user/khuongduy354@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"user",
+										"khuongduy354@gmail.com"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "935"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3a7-WyQ0/tA6Po/Dm7xQoO7e9ioKmBo\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 10 Apr 2022 03:43:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": 34,\n        \"name\": \"\",\n        \"email\": \"khuongduy354@gmail.com\",\n        \"age\": null,\n        \"address\": null,\n        \"phone_number\": \"1234567891Duy  \",\n        \"avatar\": null,\n        \"password\": \"$2b$10$FzTyElbdxqEkNig0LrDC..1mPCmLwF2HNWRwpPmQQnLQZ4gl6D0tO\",\n        \"videos\": [\n            {\n                \"id\": 39,\n                \"author_id\": 34,\n                \"public\": true,\n                \"views\": 0,\n                \"video_link\": \"https://res.cloudinary.com/djnleiqr2/video/upload/v1649427923/ssaxzn0e4ccx3lixxsjr.mp4\",\n                \"published_at\": \"2022-04-07T17:00:00.000Z\",\n                \"title\": \"Djdudu\",\n                \"hearts\": [],\n                \"comments\": []\n            },\n            {\n                \"id\": 40,\n                \"author_id\": 34,\n                \"public\": true,\n                \"views\": 0,\n                \"video_link\": \"https://res.cloudinary.com/djnleiqr2/video/upload/v1649494994/mnyxqcq6aneooj9mhfii.mp4\",\n                \"published_at\": \"2022-04-08T17:00:00.000Z\",\n                \"title\": \"\",\n                \"hearts\": [],\n                \"comments\": []\n            },\n            {\n                \"id\": 41,\n                \"author_id\": 34,\n                \"public\": true,\n                \"views\": 0,\n                \"video_link\": \"https://res.cloudinary.com/djnleiqr2/video/upload/v1649509555/mho84ag33ggunqrze33f.mp4\",\n                \"published_at\": \"2022-04-08T17:00:00.000Z\",\n                \"title\": \"\",\n                \"hearts\": [],\n                \"comments\": []\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{USER_EMAIL}}",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "sakdjfs",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "askdfj",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/khuongduy354/Pictures/7d443591b2d8e85df36b78def89ec8ba.jpg"
+								},
+								{
+									"key": "name",
+									"value": "DuyDuy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "{{USER_EMAIL}}",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "sakdjfs",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "askdfj",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"description": "either a file or link to avatar is fine ",
+											"type": "file",
+											"src": "/C:/Users/khuongduy354/Pictures/7d443591b2d8e85df36b78def89ec8ba.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "247"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f7-d8qJuas4a8T0ODb38ovC6dWbfns\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 03 Apr 2022 15:06:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \" user updated  \",\n    \"user\": {\n        \"id\": 8,\n        \"name\": \"\",\n        \"email\": \"khuongduy354@gmail.com\",\n        \"age\": 0,\n        \"address\": \"sakdjfs\",\n        \"phone_number\": \"askdfj         \",\n        \"avatar\": \"https://res.cloudinary.com/djnleiqr2/image/upload/v1648998376/ssermkexjzxmdkc6rqkd.jpg\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Follow User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 13,\r\n    \"follower_id\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/follow",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"follow"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Follow User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\": 8,\r\n    \"follower_id\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/user/follow",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"user",
+										"follow"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f-e/HFKcPav+th5NYgN2lAp3kAzcs\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Mar 2022 13:18:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"unfollowed  user \" //toggle followed / unfollowed depend on had followed yet. \n}"
+						}
+					]
+				},
+				{
+					"name": "Sign In User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"{{USER_EMAIL}}\",\r\n    \"password\":\"1234567891Duy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sign In User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"{{USER_EMAIL}}\",\r\n    \"password\":\"1234567891Duy\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "324"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"144-FMeU6JR4dkarGyrrnXeBwLPVYlI\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Apr 2022 08:54:07 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": 34,\n        \"name\": \"\",\n        \"email\": \"khuongduy354@gmail.com\",\n        \"age\": 0,\n        \"address\": \"null\",\n        \"phone_number\": \"1234567891Duy  \",\n        \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1649673862/gy63qnlsnky6iifhmzir.jpg\",\n        \"password\": \"$2b$10$FzTyElbdxqEkNig0LrDC..1mPCmLwF2HNWRwpPmQQnLQZ4gl6D0tO\",\n        \"video_id\": 43\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Video",
+			"item": [
+				{
+					"name": "Create video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "videoFile",
+									"type": "file",
+									"src": "/C:/Users/khuongduy354/Pictures/7d443591b2d8e85df36b78def89ec8ba.jpg"
+								},
+								{
+									"key": "email",
+									"value": "{{USER_EMAIL}}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Pixelated Forest 2",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/video",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "videoFile",
+											"description": "value can be .png or .mp4 \n",
+											"type": "file",
+											"src": "/C:/Users/khuongduy354/Pictures/Django REST with React — Mozilla Firefox.mp4"
+										},
+										{
+											"key": "email",
+											"value": "someone@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/video",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"video"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e-9Jw7i9S7rva2X2WVJ4fMNtko7d8\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 29 Mar 2022 15:13:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \" video created  \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Like video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"author_id\":8,\r\n    \"video_id\":10\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/video/like",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Like video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"author_id\":8,\r\n    \"video_id\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/video/like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"video",
+										"like"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-j+84e6v3cB/KC3zMqgxFO4a2TJQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Mar 2022 13:20:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{ \"message\":  \"video liked\"  }// dislike or like toggle "
+						}
+					]
+				},
+				{
+					"name": "Comment Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":8,\r\n    \"video_id\":33,\r\n    \"content\":\"this is the third  comment \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/video/comment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video",
+								"comment"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Comment Video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\":8,\r\n    \"video_id\":1,\r\n    \"content\":\"this is the second  comment \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/video/comment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"video",
+										"comment"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-uNuc7Lr3sGAFZrlz9LKEA+52R30\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Mar 2022 13:21:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{ \"message\": \"video comment made\" }"
+						}
+					]
+				},
+				{
+					"name": "Get Video",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/video/43",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video",
+								"43"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Video",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/video/43",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"video",
+										"43"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "530"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"212-D5jB70+GdyZIQp8wN+pNLVuoKMk\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Apr 2022 08:51:42 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \" video found \",\n    \"video\": {\n        \"id\": 43,\n        \"author_id\": 34,\n        \"public\": true,\n        \"views\": 0,\n        \"video_link\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1649667752/ux24h0qfwql6l9gkiv60.jpg\",\n        \"published_at\": \"2022-04-11T00:00:00.000Z\",\n        \"title\": \"Mer màng \",\n        \"hearts\": [\n            34\n        ],\n        \"comments\": [\n            {\n                \"email\": \"khuongduy354@gmail.com//http://res.cloudinary.com/djnleiqr2/image/upload/v1649673862/gy63qnlsnky6iifhmzir.jpg//Bhgg\"\n            },\n            {\n                \"email\": \"khuongduy354@gmail.com//http://res.cloudinary.com/djnleiqr2/image/upload/v1649673862/gy63qnlsnky6iifhmzir.jpg//...\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Video",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\":3,\r\n    \"video_id\":6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/video",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Video",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\":3,\r\n    \"video_id\":6\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/tiktok/v1/video",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"tiktok",
+										"v1",
+										"video"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c-p+AkJqXHntrVSWBhxlAmzQ1q7aA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Mar 2022 13:36:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"video deleted \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Feed",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/video/feed/all",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video",
+								"feed",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Feed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/video/feed/all",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"video",
+										"feed",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "718"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"2ce-36vd/iizDny3UbLLUt7GqzuMVOY\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 12 Apr 2022 08:52:26 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"feed generated\",\n    \"feed\": [\n        {\n            \"id\": 43,\n            \"author_id\": 34,\n            \"public\": true,\n            \"views\": 0,\n            \"video_link\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1649667752/ux24h0qfwql6l9gkiv60.jpg\",\n            \"published_at\": \"2022-04-11T00:00:00.000Z\",\n            \"title\": \"Mer màng \",\n            \"author_email\": \"khuongduy354@gmail.com\",\n            \"author_avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1649673862/gy63qnlsnky6iifhmzir.jpg\",\n            \"hearts\": [\n                34\n            ],\n            \"comments\": [\n                {\n                    \"email\": \"khuongduy354@gmail.com\",\n                    \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1649673862/gy63qnlsnky6iifhmzir.jpg\",\n                    \"content\": \"Bhgg\"\n                },\n                {\n                    \"email\": \"khuongduy354@gmail.com\",\n                    \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1649673862/gy63qnlsnky6iifhmzir.jpg\",\n                    \"content\": \"...\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

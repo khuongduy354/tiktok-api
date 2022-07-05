@@ -1,6 +1,4 @@
 import { parseComment } from "./../helper/parseComment";
-import { mergeMultipleRows } from "./../helper/mergeMultipleRows";
-import { mergeRows } from "./../helper/mergeRows";
 import { Pool } from "pg";
 import {
   addVideoProp,

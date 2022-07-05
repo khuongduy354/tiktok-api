@@ -6,7 +6,6 @@ import {
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
 import { mergeRows } from "../helper/mergeRows";
-import { mergeMultipleRows } from "../helper/mergeMultipleRows";
 import { VideoDAO } from ".";
 const createUser = async ({
   email,
@@ -43,12 +42,7 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
 
     const videoResult = await VideoDAO.getFeed(id);
     result.rows[0].videos = videoResult;
-    // result.rows[0].followingState = followResult.rows[0];
-    // result.rows[0].videos = mergeMultipleRows(result.rows, ["video_id", "uri"]);
-    // result.rows.forEach((row: any) => {
-    //   delete row.video_id;
-    //   delete row.uri;
-    // });
+
     return result.rows[0];
   } catch (e) {
     throw e;
