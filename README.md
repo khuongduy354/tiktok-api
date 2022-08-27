@@ -5,5 +5,8 @@ A tiktok backend for my react native fork.
 - CRUD videos 
 - Like, Comment Videos
 - Followings
+# Tech 
+- Cloudinary integrated
+- Raw SQL queries, database in ElephantSQL.
 # Issue 
 - No authorization. 
