@@ -1,5 +1,6 @@
 # Tiktok API 
 A tiktok backend for my react native fork.
+Frontend here: https://github.com/khuongduy354/tiktok-clone
 # Features 
 - Authentication: bcrypt
 - CRUD videos 
