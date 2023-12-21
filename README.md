@@ -12,6 +12,8 @@ Frontend here: https://github.com/khuongduy354/tiktok-clone
 # Todo 
 - No authorization middleware (needed to check for author right)
 - Middleware for checking instances in SQL
-
-
- 
+# Database design 
+![db_diagram](tiktok-db-diagram.png)
+# Issue 
+- No authorization. 
+- Raw SQL query, SQL injection
