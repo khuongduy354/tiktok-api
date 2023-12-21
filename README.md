@@ -9,5 +9,8 @@ Frontend here: https://github.com/khuongduy354/tiktok-clone
 # Tech 
 - Cloudinary integrated
 - Raw SQL queries, database in ElephantSQL.
+# Database design 
+[](tiktok-db-diagram.png)
 # Issue 
 - No authorization. 
+- Raw SQL query, SQL injection
