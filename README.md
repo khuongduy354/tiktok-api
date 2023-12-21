@@ -10,8 +10,8 @@ Frontend here: https://github.com/khuongduy354/tiktok-clone
 - Cloudinary integrated
 - Raw SQL queries, database in ElephantSQL.
 # Todo 
-- No authorization middleware (needed to check for author right)
-- Middleware for checking instances in SQL
+- No authorization (JWT or cookiebased) 
+- Middlewares for auth, and valid email form 
 # Database design 
 ![db_diagram](tiktok-db-diagram.png)
 # Issue 

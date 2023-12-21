@@ -37,7 +37,6 @@ const addVideo = async ({
   }
 };
 
-// TODO: separate like and unlike
 const unLikeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
     const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;

@@ -102,6 +102,7 @@ const unfollowUser = async ({ user_id, follower_id }: followUserProp) => {
 };
 const followUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
+    // remember to set unique pair of user_id and follower_id CONSTRAINT
     const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
     await pool.query(query);
     return true;
