@@ -15,7 +15,7 @@
 # Refractoring original
 - Auth in database query? DONE 
 - pool is local, wtf   DONE
-- toggle features: like, dislike,... into 2 endpoints 
+- toggle features: like, dislike,... into 2 endpoints  DONE
 - sql instance exist, authorized middleware 
 
 

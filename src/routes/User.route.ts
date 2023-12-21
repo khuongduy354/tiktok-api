@@ -18,4 +18,5 @@ export const UserRouter = (router: Router) => {
   router.post("/user/login", checkMailMiddleware, UserController.signInAccount);
   router.put("/user", upload.single("avatar"), UserController.updateUser);
   router.post("/user/follow", UserController.followUser);
+  router.delete("/user/follow", UserController.unFollowUser);
 };

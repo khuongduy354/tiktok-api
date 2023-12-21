@@ -91,20 +91,20 @@ const updateUser = async ({
     throw e;
   }
 };
-
+const unfollowUser = async ({ user_id, follower_id }: followUserProp) => {
+  try {
+    const query = `DELETE FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
+    await pool.query(query);
+    return false;
+  } catch (e) {
+    throw e;
+  }
+};
 const followUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
-    const checkExistQuery = `SELECT * FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
-    const checkResult = await pool.query(checkExistQuery);
-    if (checkResult.rows.length !== 0) {
-      const query = `DELETE FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
-      await pool.query(query);
-      return false;
-    } else {
-      const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
-      await pool.query(query);
-      return true;
-    }
+    const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
+    await pool.query(query);
+    return true;
   } catch (e) {
     throw e;
   }
@@ -116,4 +116,5 @@ export default {
   updateUser,
   followUser,
   getUserWithAuth,
+  unfollowUser,
 };

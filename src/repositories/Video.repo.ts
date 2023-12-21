@@ -38,20 +38,18 @@ const addVideo = async ({
 };
 
 // TODO: separate like and unlike
+const unLikeVideo = async ({ author_id, video_id }: likeVideoProp) => {
+  try {
+    const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
+    await pool.query(query);
+  } catch (e) {
+    throw e;
+  }
+};
 const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
-    const likesQuery = `SELECT userheart.user_id as likes FROM video LEFT JOIN userheart on userheart.video_id = video.id`;
-    let likesTable = await pool.query(likesQuery);
-
-    if (likesTable.rows.some((el) => el.likes === author_id)) {
-      const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
-      await pool.query(query);
-      return false;
-    } else {
-      const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
-      await pool.query(query);
-      return true;
-    }
+    const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
+    await pool.query(query);
   } catch (e) {
     throw e;
   }
@@ -154,5 +152,6 @@ export default {
   getVideo,
   commentVideo,
   likeVideo,
+  unLikeVideo,
   deleteVideo,
 };
