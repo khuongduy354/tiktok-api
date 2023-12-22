@@ -7,31 +7,32 @@ import {
   getVideoProp,
   likeVideoProp,
 } from "./../types/VideoTypes";
+import { kn } from "../config/knex";
 const pool = new Pool();
 
 const addVideo = async ({
   author_email,
   title = "",
-  video_location,
-  _public = true,
+  video_link,
+  isPublic = true,
 }: addVideoProp) => {
   try {
-    const created_at = new Date().toISOString().slice(0, 10);
+    const published_at = new Date().toISOString().slice(0, 10);
 
-    const userQuery = `SELECT id from useraccount where email = '${author_email}' `;
-    const userResult = await pool.query(userQuery);
-    const author_id = userResult.rows[0].id;
+    const userResult = await kn("useraccount")
+      .where({ email: author_email })
+      .select("id")
+      .first();
+    const author_id = userResult.id;
 
-    const query = `INSERT INTO video  
-  (author_id,title,public,views,video_link,published_at) values(
-      '${author_id}',
-      '${title}',
-      '${_public}',
-      ${0},
-      '${video_location}',
-      '${created_at}'
-  ) `;
-    await pool.query(query);
+    await kn("video").insert({
+      author_id,
+      title,
+      public: isPublic,
+      views: 0,
+      video_link,
+      published_at,
+    });
   } catch (e) {
     throw e;
   }
@@ -39,16 +40,14 @@ const addVideo = async ({
 
 const unLikeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
-    const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
-    await pool.query(query);
+    await kn("userheart").where({ user_id: author_id }).del();
   } catch (e) {
     throw e;
   }
 };
 const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
-    const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
-    await pool.query(query);
+    await kn("userheart").insert({ user_id: author_id, video_id });
   } catch (e) {
     throw e;
   }
@@ -61,8 +60,7 @@ const commentVideo = async ({
 }: commentVideoProp) => {
   try {
     const created_at = new Date().toISOString().slice(0, 10);
-    const query = `INSERT INTO usercomment (user_id, video_id,content,created_at) VALUES  ('${user_id}','${video_id}','${content}','${created_at}') `;
-    await pool.query(query);
+    await kn("usercomment").insert({ user_id, video_id, content, created_at });
   } catch (e) {
     throw e;
   }
@@ -100,12 +98,9 @@ const getVideo = async ({ id }: getVideoProp) => {
 
 const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
   try {
-    const deleteHeart = `DELETE  FROM userheart where video_id  = ${video_id}`;
-    const deleteComment = `DELETE  FROM usercomment where video_id = ${video_id}`;
-    const deleteVideo = `DELETE  FROM video where ID = ${video_id}`;
-    await pool.query(deleteHeart);
-    await pool.query(deleteComment);
-    await pool.query(deleteVideo);
+    await kn("userheart").where(video_id).del();
+    await kn("usercomment").where(video_id).del();
+    await kn("video").where({ id: video_id }).del();
     return true;
   } catch (e) {
     return false;
