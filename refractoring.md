@@ -1,3 +1,12 @@
+
+# Refractoring original
+- Auth in database query? DONE 
+- pool is local, wtf   DONE
+- toggle features: like, dislike,... into 2 endpoints  DONE
+- sql instance exist, authorized middleware DONE
+
+# Query
+
   getUserFromEmail,
   getUserFromId,
   createUser,
@@ -10,15 +19,6 @@
   commentVideo,
   likeVideo,
   deleteVideo, 
- 
-
-# Refractoring original
-- Auth in database query? DONE 
-- pool is local, wtf   DONE
-- toggle features: like, dislike,... into 2 endpoints  DONE
-- sql instance exist, authorized middleware 
-
-
 
 # Raw SQL
 
@@ -51,4 +51,5 @@ INSERT INTO usercomment (user_id, video_id,content,created_at) VALUES  ('${user_
 `DELETE  FROM userheart where video_id  = ${video_id}`; 
     `DELETE  FROM usercomment where video_id = ${video_id}`;
     `DELETE  FROM video where ID = ${video_id}`;
+
 
