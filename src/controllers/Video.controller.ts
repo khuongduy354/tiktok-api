@@ -56,11 +56,21 @@ const getVideo = async (req: Request, res: Response) => {
     throw e;
   }
 };
+const unLikeVideo = async (req: Request, res: Response) => {
+  try {
+    const { author_id, video_id }: likeVideoProp = req.body;
+    await VideoDAO.unLikeVideo({ author_id, video_id });
+    res.status(200).json({ message: `Unliked video!` });
+  } catch (e) {
+    res.status(500).json({ error: "cannot like  video", message: "unsuccess" });
+    throw e;
+  }
+};
 const likeVideo = async (req: Request, res: Response) => {
   try {
     const { author_id, video_id }: likeVideoProp = req.body;
     const isLike = await VideoDAO.likeVideo({ author_id, video_id });
-    res.status(200).json({ message: `video ${isLike ? "liked" : "disliked"}` });
+    res.status(200).json({ message: `Liked video` });
   } catch (e) {
     res.status(500).json({ error: "cannot like  video", message: "unsuccess" });
     throw e;
@@ -124,6 +134,7 @@ export default {
   createVideo,
   getVideo,
   likeVideo,
+  unLikeVideo,
   commentVideo,
   deleteVideo,
   allFeed,

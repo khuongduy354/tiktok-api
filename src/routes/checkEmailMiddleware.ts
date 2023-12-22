@@ -12,3 +12,5 @@ export const checkMailMiddleware = (
     res.status(404).json({ error: "invalid email" });
   }
 };
+
+export const userAuth = (req: Request, res: Response, next: NextFunction) => {};

@@ -7,7 +7,8 @@ import {
   getVideoProp,
   likeVideoProp,
 } from "./../types/VideoTypes";
-import { UserDAO } from ".";
+const pool = new Pool();
+
 const addVideo = async ({
   author_email,
   title = "",
@@ -16,7 +17,7 @@ const addVideo = async ({
 }: addVideoProp) => {
   try {
     const created_at = new Date().toISOString().slice(0, 10);
-    const pool = new Pool();
+
     const userQuery = `SELECT id from useraccount where email = '${author_email}' `;
     const userResult = await pool.query(userQuery);
     const author_id = userResult.rows[0].id;
@@ -36,32 +37,29 @@ const addVideo = async ({
   }
 };
 
-const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
+const unLikeVideo = async ({ author_id, video_id }: likeVideoProp) => {
   try {
-    const pool = new Pool();
-
-    const videoQuery = `SELECT userheart.user_id as likes FROM video LEFT JOIN userheart on userheart.video_id = video.id`;
-    let likesTables = await pool.query(videoQuery);
-    if (likesTables.rows.some((el) => el.likes === author_id)) {
-      const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
-      await pool.query(query);
-      return false;
-    } else {
-      const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
-      await pool.query(query);
-      return true;
-    }
+    const query = `DELETE FROM userheart WHERE user_id ='${author_id}'`;
+    await pool.query(query);
   } catch (e) {
     throw e;
   }
 };
+const likeVideo = async ({ author_id, video_id }: likeVideoProp) => {
+  try {
+    const query = `INSERT INTO userheart (user_id,video_id) VALUES ('${author_id}','${video_id}')`;
+    await pool.query(query);
+  } catch (e) {
+    throw e;
+  }
+};
+
 const commentVideo = async ({
   user_id,
   video_id,
   content,
 }: commentVideoProp) => {
   try {
-    const pool = new Pool();
     const created_at = new Date().toISOString().slice(0, 10);
     const query = `INSERT INTO usercomment (user_id, video_id,content,created_at) VALUES  ('${user_id}','${video_id}','${content}','${created_at}') `;
     await pool.query(query);
@@ -72,17 +70,19 @@ const commentVideo = async ({
 
 const getVideo = async ({ id }: getVideoProp) => {
   try {
-    const pool = new Pool();
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
-    const target = `video.*, 
+    const authorJoin = `useraccount on useraccount.id = usercomment.user_id`;
+    const fields = `video.*, 
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments`;
-    const query = `SELECT ${target} FROM video 
+
+    const query = `SELECT ${fields} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
-    LEFT JOIN useraccount on useraccount.id = usercomment.user_id
+    LEFT JOIN ${authorJoin}
     WHERE video.id = ${id}
     GROUP BY video.id `;
+
     const result = await pool.query(query);
     result.rows[0].comments = result.rows[0].comments.filter(
       (comment: any) => comment !== null
@@ -91,6 +91,7 @@ const getVideo = async ({ id }: getVideoProp) => {
     result.rows[0].hearts = result.rows[0].hearts.filter(
       (heart: any) => heart !== null
     );
+
     return result;
   } catch (e) {
     throw e;
@@ -99,13 +100,6 @@ const getVideo = async ({ id }: getVideoProp) => {
 
 const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
   try {
-    const pool = new Pool();
-    const videoQuery = `SELECT * FROM video where ID = ${video_id}`;
-    const video = await pool.query(videoQuery);
-
-    if (video.rows[0].author_id !== user_id) {
-      throw Error("Access denied");
-    }
     const deleteHeart = `DELETE  FROM userheart where video_id  = ${video_id}`;
     const deleteComment = `DELETE  FROM usercomment where video_id = ${video_id}`;
     const deleteVideo = `DELETE  FROM video where ID = ${video_id}`;
@@ -119,8 +113,6 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
 };
 const getFeed = async (queryId = -1) => {
   try {
-    const pool = new Pool();
-
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
     const target = `video.*,
@@ -128,18 +120,20 @@ const getFeed = async (queryId = -1) => {
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (u1.email || '$$' || u1.avatar || '$$' || content ) as comments
        `;
-    const emailCondition = queryId !== -1 ? `WHERE u2.id  = '${queryId}'` : "";
+    const idCondition = queryId !== -1 ? `u2.id  = '${queryId}'` : "";
+
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount u1 on u1.id = usercomment.user_id
     LEFT JOIN useraccount u2 on u2.id = video.author_id 
-    ${emailCondition}
+    WHERE ${idCondition}
     GROUP BY video.id,u2.id
     ORDER BY RANDOM()
     LIMIT 20 
      `;
 
     const result = await pool.query(query);
+
     for (let row of result.rows) {
       row.comments = row.comments.filter((comment: any) => comment !== null);
       row.hearts = row.hearts.filter((heart: any) => heart !== null);
@@ -157,5 +151,6 @@ export default {
   getVideo,
   commentVideo,
   likeVideo,
+  unLikeVideo,
   deleteVideo,
 };

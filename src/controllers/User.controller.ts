@@ -110,10 +110,18 @@ const updateUser = async (req: Request, res: Response) => {
 const followUser = async (req: Request, res: Response) => {
   try {
     const { user_id, follower_id }: followUserProp = req.body;
-    const isFollow = await UserDAO.followUser({ user_id, follower_id });
-    res
-      .status(200)
-      .json({ message: `${isFollow ? "followed " : "unfollowed "} user ` });
+    await UserDAO.followUser({ user_id, follower_id });
+    res.status(200).json({ message: `Followed user!` });
+  } catch (e) {
+    res.status(500).json({ error: "cannot find", message: "unsuccess" });
+    throw e;
+  }
+};
+const unFollowUser = async (req: Request, res: Response) => {
+  try {
+    const { user_id, follower_id }: followUserProp = req.body;
+    await UserDAO.unfollowUser({ user_id, follower_id });
+    res.status(200).json({ message: `Unfollowed user!` });
   } catch (e) {
     res.status(500).json({ error: "cannot find", message: "unsuccess" });
     throw e;
@@ -125,4 +133,5 @@ export default {
   updateUser,
   followUser,
   signInAccount,
+  unFollowUser,
 };

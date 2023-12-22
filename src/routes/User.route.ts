@@ -1,12 +1,13 @@
 import { Router } from "express";
 import multer from "multer";
 import { UserController } from "../controllers";
-import { checkMailMiddleware } from "./checkEmailMiddleware";
+import { checkMailMiddleware, userAuth } from "./checkEmailMiddleware";
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 export const UserRouter = (router: Router) => {
   router.post(
     "/user/signup",
+    userAuth,
     checkMailMiddleware,
     UserController.signupAccount
   );
@@ -16,6 +17,13 @@ export const UserRouter = (router: Router) => {
     UserController.getUserFromEmail
   );
   router.post("/user/login", checkMailMiddleware, UserController.signInAccount);
-  router.put("/user", upload.single("avatar"), UserController.updateUser);
-  router.post("/user/follow", UserController.followUser);
+  router.put(
+    "/user",
+    userAuth,
+    checkMailMiddleware,
+    upload.single("avatar"),
+    UserController.updateUser
+  );
+  router.post("/user/follow", userAuth, UserController.followUser);
+  router.delete("/user/follow", userAuth, UserController.unFollowUser);
 };

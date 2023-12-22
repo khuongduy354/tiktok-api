@@ -5,8 +5,10 @@ import {
 } from "./../types/UserTypes";
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
-import { mergeRows } from "../helper/mergeRows";
 import { VideoDAO } from ".";
+
+const pool = new Pool();
+
 const createUser = async ({
   email,
   name = "",
@@ -14,7 +16,6 @@ const createUser = async ({
   hashedPassword,
 }: createUserProp) => {
   try {
-    const pool = new Pool();
     const query = `INSERT INTO useraccount (email,name,phone_number,password) values ('${email}', '${name}','${password}','${hashedPassword}');`;
     await pool.query(query);
   } catch (e) {
@@ -23,16 +24,15 @@ const createUser = async ({
 };
 const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
   try {
-    const pool = new Pool();
-    const followQuery = ` SELECT CASE WHEN useraccount.id = userfollow.user_id THEN userfollow.follower_id END AS "followers",
-     CASE WHEN useraccount.id = userfollow.follower_id THEN userfollow.user_id END AS "followings"
-     FROM useraccount LEFT JOIN userfollow ON useraccount.id = userfollow.user_id or useraccount.id = userfollow.follower_id
-     LEFT JOIN video ON useraccount.id = video.author_id
-     WHERE useraccount.email = '${email}'
-   ;`;
-    const followResult = await pool.query(followQuery);
-    mergeRows(followResult.rows, "followings");
-    mergeRows(followResult.rows, "followers");
+    //   const followQuery = ` SELECT CASE WHEN useraccount.id = userfollow.user_id THEN userfollow.follower_id END AS "followers",
+    //    CASE WHEN useraccount.id = userfollow.follower_id THEN userfollow.user_id END AS "followings"
+    //    FROM useraccount LEFT JOIN userfollow ON useraccount.id = userfollow.user_id or useraccount.id = userfollow.follower_id
+    //    LEFT JOIN video ON useraccount.id = video.author_id
+    //    WHERE useraccount.email = '${email}'
+    //  ;`;
+    //   const followResult = await pool.query(followQuery);
+    //   mergeRows(followResult.rows, "followings");
+    //   mergeRows(followResult.rows, "followers");
 
     const query = `SELECT useraccount.* FROM useraccount
     WHERE useraccount.email = '${email}' `;
@@ -50,7 +50,6 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
 };
 const getUserWithAuth = async ({ email }: any) => {
   try {
-    const pool = new Pool();
     const query = `SELECT useraccount.*, video.id as video_id  from useraccount LEFT JOIN video ON useraccount.ID = video.author_id 
     WHERE useraccount.email = '${email}'`;
     const result = (await pool.query(query)) as any;
@@ -61,7 +60,6 @@ const getUserWithAuth = async ({ email }: any) => {
 };
 const getUserFromId = async (id: number) => {
   try {
-    const pool = new Pool();
     const query = ` SELECT email, name FROM useraccount WHERE useraccount.user_id = '${id}'
    ;`;
     const result = await pool.query(query);
@@ -79,7 +77,6 @@ const updateUser = async ({
   avatar = "",
 }: updateUserProp) => {
   try {
-    const pool = new Pool();
     const query = `UPDATE useraccount SET 
     name = '${name}',
     age = ${age},
@@ -94,21 +91,21 @@ const updateUser = async ({
     throw e;
   }
 };
-
+const unfollowUser = async ({ user_id, follower_id }: followUserProp) => {
+  try {
+    const query = `DELETE FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
+    await pool.query(query);
+    return false;
+  } catch (e) {
+    throw e;
+  }
+};
 const followUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
-    const pool = new Pool();
-    const checkExistQuery = `SELECT * FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
-    const checkResult = await pool.query(checkExistQuery);
-    if (checkResult.rows.length !== 0) {
-      const query = `DELETE FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
-      await pool.query(query);
-      return false;
-    } else {
-      const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
-      await pool.query(query);
-      return true;
-    }
+    // remember to set unique pair of user_id and follower_id CONSTRAINT
+    const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
+    await pool.query(query);
+    return true;
   } catch (e) {
     throw e;
   }
@@ -120,4 +117,5 @@ export default {
   updateUser,
   followUser,
   getUserWithAuth,
+  unfollowUser,
 };
