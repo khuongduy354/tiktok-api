@@ -6,18 +6,25 @@ import {
 import { Pool } from "pg";
 import { createUserProp } from "../types/UserTypes";
 import { VideoDAO } from ".";
+import { kn } from "../config/knex";
 
 const pool = new Pool();
 
 const createUser = async ({
   email,
   name = "",
-  password,
   hashedPassword,
+  phone_number = "",
 }: createUserProp) => {
   try {
-    const query = `INSERT INTO useraccount (email,name,phone_number,password) values ('${email}', '${name}','${password}','${hashedPassword}');`;
-    await pool.query(query);
+    await kn("useraccount").insert({
+      email,
+      name,
+      phone_number,
+      password: hashedPassword,
+    });
+    // const query = `INSERT INTO useraccount (email,name,phone_number,password) values ('${email}', '${name}','${password}','${hashedPassword}');`;
+    // await pool.query(query);
   } catch (e) {
     throw e;
   }
@@ -33,37 +40,35 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
     //   const followResult = await pool.query(followQuery);
     //   mergeRows(followResult.rows, "followings");
     //   mergeRows(followResult.rows, "followers");
-
-    const query = `SELECT useraccount.* FROM useraccount
-    WHERE useraccount.email = '${email}' `;
-
-    let result = (await pool.query(query)) as any;
-    const id = result.rows[0].id;
+    let result = await kn("useraccount").where({ email }).select("*").first();
+    let id = result.id;
 
     const videoResult = await VideoDAO.getFeed(id);
-    result.rows[0].videos = videoResult;
+    result.videos = videoResult;
 
-    return result.rows[0];
+    return result;
   } catch (e) {
     throw e;
   }
 };
 const getUserWithAuth = async ({ email }: any) => {
   try {
-    const query = `SELECT useraccount.*, video.id as video_id  from useraccount LEFT JOIN video ON useraccount.ID = video.author_id 
-    WHERE useraccount.email = '${email}'`;
-    const result = (await pool.query(query)) as any;
-    return result.rows[0];
+    const result = await kn("useraccount")
+      .join("video", "useraccount.id", "=", "video.author_id")
+      .where({ email })
+      .select("useraccount.*")
+      .first();
+    return result;
   } catch (e) {
     throw e;
   }
 };
 const getUserFromId = async (id: number) => {
   try {
-    const query = ` SELECT email, name FROM useraccount WHERE useraccount.user_id = '${id}'
-   ;`;
-    const result = await pool.query(query);
-    return result.rows[0];
+    const result = await kn("usersaccount")
+      .where({ user_id: id })
+      .select("email", "name");
+    return result;
   } catch (e) {
     throw e;
   }
@@ -77,35 +82,25 @@ const updateUser = async ({
   avatar = "",
 }: updateUserProp) => {
   try {
-    const query = `UPDATE useraccount SET 
-    name = '${name}',
-    age = ${age},
-    address = '${address}',
-    avatar = '${avatar}'
-    WHERE email = '${email}'`;
-    await pool.query(query);
-    const userQuery = `SELECT * from useraccount where email='${email}'`;
-    const result = await pool.query(userQuery);
-    return result.rows[0];
+    await kn("useraccount")
+      .update({ name, age, address, avatar })
+      .where({ email });
+    const result = await kn("useraccount").where({ email });
+    return result;
   } catch (e) {
     throw e;
   }
 };
 const unfollowUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
-    const query = `DELETE FROM userfollow WHERE follower_id = '${follower_id}' AND user_id = '${user_id}'`;
-    await pool.query(query);
-    return false;
+    await kn("userfollow").where({ user_id, follower_id }).del();
   } catch (e) {
     throw e;
   }
 };
 const followUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
-    // remember to set unique pair of user_id and follower_id CONSTRAINT
-    const query = `INSERT INTO userfollow (follower_id,user_id) VALUES ('${follower_id}','${user_id}')`;
-    await pool.query(query);
-    return true;
+    await kn("userfollow").insert({ user_id, follower_id });
   } catch (e) {
     throw e;
   }

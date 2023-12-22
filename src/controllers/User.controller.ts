@@ -12,14 +12,19 @@ import { cloudinary } from "../config/cloudinary";
 
 const signupAccount = async (req: Request, res: Response) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, phone_number } = req.body;
     const saltRounds = 10;
     const hashedPassword = await bcrypt
       .hash(password, saltRounds)
       .catch((e) => {
         throw "Error";
       });
-    const UserDTO: createUserProp = { name, email, password, hashedPassword };
+    const UserDTO: createUserProp = {
+      name,
+      email,
+      hashedPassword,
+      phone_number,
+    };
     await UserDAO.createUser(UserDTO);
     res.status(200).json({ message: "success" });
   } catch (e) {

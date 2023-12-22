@@ -1,8 +1,8 @@
 export type createUserProp = {
   email: string;
   name: string;
-  password: string;
   hashedPassword: string;
+  phone_number: string;
 };
 export type getUserFromEmailProp = {
   email: string;
