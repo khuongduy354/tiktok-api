@@ -3,6 +3,7 @@ export type addVideoProp = {
   title: string;
   video_link: string;
   isPublic?: boolean;
+  video_location?: string;
 };
 export type getVideoProp = {
   id: number;
