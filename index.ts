@@ -11,6 +11,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/tiktok/v1", router);
 
+const PORT = process.env.PORT || 3000;
+
 //Test endpoints
 const upload = multer({ dest: "public/videos" });
 app.post("/upload", upload.single("video"), (req, res) => {
@@ -22,8 +24,8 @@ app.get("/helloworld", async (req, res) => {
   res.json({ message: "Hello" });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Running on ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Running on ${PORT}`);
 });
 
 process.on("unhandledRejection", (reason: Error, promise: Promise<any>) => {
