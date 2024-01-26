@@ -1,5 +1,4 @@
 import express from "express";
-import multer from "multer";
 import "dotenv/config";
 import router from "./src/routes";
 import cors from "cors";
@@ -14,11 +13,7 @@ app.use("/tiktok/v1", router);
 const PORT = process.env.PORT || 3000;
 
 //Test endpoints
-const upload = multer({ dest: "public/videos" });
-app.post("/upload", upload.single("video"), (req, res) => {
-  console.log(req.file);
-  res.send("worked");
-});
+
 app.get("/helloworld", async (req, res) => {
   console.log("hit");
   res.json({ message: "Hello" });

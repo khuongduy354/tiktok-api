@@ -1,12 +1,12 @@
 import { VideoController } from "../controllers";
 import multer from "multer";
 import { Router } from "express";
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage });
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 export const VideoRouter = (router: Router) => {
   router.post(
     "/video",
-    // upload.single("videoFile"),
+    upload.single("videoFile"),
     VideoController.createVideo
   );
   router.get("/video/:id", VideoController.getVideo);
