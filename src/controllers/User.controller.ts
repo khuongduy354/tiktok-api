@@ -9,6 +9,7 @@ import { UserDAO } from "../repositories";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { cloudinary } from "../config/cloudinary";
+import { signJWT } from "../helper/jwt";
 
 const signupAccount = async (req: Request, res: Response) => {
   try {
@@ -26,7 +27,10 @@ const signupAccount = async (req: Request, res: Response) => {
       phone_number,
     };
     await UserDAO.createUser(UserDTO);
-    res.status(200).json({ message: "success" });
+    const user = await UserDAO.getUserFromEmail({ email });
+    const token = signJWT(user.email, user.id);
+
+    res.status(200).json({ message: "success", token });
   } catch (e) {
     res.status(500).json({ error: "cannot create user", message: "unsuccess" });
     throw e;
@@ -48,7 +52,9 @@ const signInAccount = async (req: Request, res: Response) => {
     const user = await UserDAO.getUserWithAuth({
       email,
     });
-    res.status(200).json({ message: "success", user });
+    const tok = signJWT(user.email, user.id);
+
+    res.status(200).json({ message: "success", user, token: tok });
   } catch (e) {
     res.status(500).json({ error: "cannot create user", message: "unsuccess" });
     throw e;

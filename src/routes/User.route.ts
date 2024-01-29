@@ -12,18 +12,18 @@ export const UserRouter = (router: Router) => {
     UserController.signupAccount
   );
   router.get(
-    "/user/:email",
+    "/users/:email",
     checkMailMiddleware,
     UserController.getUserFromEmail
   );
   router.post("/user/login", checkMailMiddleware, UserController.signInAccount);
   router.put(
-    "/user",
+    "/users/:email",
     userAuth,
     checkMailMiddleware,
     upload.single("avatar"),
     UserController.updateUser
   );
-  router.post("/user/follow", userAuth, UserController.followUser);
-  router.delete("/user/follow", userAuth, UserController.unFollowUser);
+  router.post("/users/:id/follow", userAuth, UserController.followUser);
+  router.delete("/users/:id/follow", userAuth, UserController.unFollowUser);
 };
