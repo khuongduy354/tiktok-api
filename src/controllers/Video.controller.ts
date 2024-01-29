@@ -58,8 +58,11 @@ const getVideo = async (req: Request, res: Response) => {
 };
 const unLikeVideo = async (req: Request, res: Response) => {
   try {
-    const { author_id, video_id }: likeVideoProp = req.body;
-    await VideoDAO.unLikeVideo({ author_id, video_id });
+    const { id } = req.params;
+    await VideoDAO.unLikeVideo({
+      author_id: parseInt(req.user.id),
+      video_id: parseInt(id),
+    });
     res.status(200).json({ message: `Unliked video!` });
   } catch (e) {
     res.status(500).json({ error: "cannot like  video", message: "unsuccess" });
@@ -68,8 +71,12 @@ const unLikeVideo = async (req: Request, res: Response) => {
 };
 const likeVideo = async (req: Request, res: Response) => {
   try {
-    const { author_id, video_id }: likeVideoProp = req.body;
-    const isLike = await VideoDAO.likeVideo({ author_id, video_id });
+    const { id } = req.params;
+
+    const isLike = await VideoDAO.likeVideo({
+      author_id: parseInt(req.user.id),
+      video_id: parseInt(id),
+    });
     res.status(200).json({ message: `Liked video` });
   } catch (e) {
     res.status(500).json({ error: "cannot like  video", message: "unsuccess" });
@@ -79,8 +86,13 @@ const likeVideo = async (req: Request, res: Response) => {
 
 const commentVideo = async (req: Request, res: Response) => {
   try {
-    const { user_id, video_id, content }: commentVideoProp = req.body;
-    await VideoDAO.commentVideo({ user_id, video_id, content });
+    const { content }: commentVideoProp = req.body;
+    const { id } = req.params;
+    await VideoDAO.commentVideo({
+      user_id: parseInt(req.user.id),
+      video_id: parseInt(id),
+      content,
+    });
     res.status(200).json({ message: `video comment made` });
   } catch (e) {
     res
@@ -92,8 +104,11 @@ const commentVideo = async (req: Request, res: Response) => {
 
 const deleteVideo = async (req: Request, res: Response) => {
   try {
-    const { user_id, video_id }: commentVideoProp = req.body;
-    const isDeleted = await VideoDAO.deleteVideo({ user_id, video_id });
+    const { id } = req.params;
+    const isDeleted = await VideoDAO.deleteVideo({
+      user_id: parseInt(req.user.id),
+      video_id: parseInt(id),
+    });
     if (isDeleted) {
       res.status(200).json({ message: `video deleted ` });
     } else {

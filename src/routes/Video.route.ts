@@ -12,10 +12,12 @@ export const VideoRouter = (router: Router) => {
     VideoController.createVideo
   );
   router.get("/videos/:id", VideoController.getVideo);
+  router.delete("/videos/:id", userAuth, VideoController.deleteVideo);
+
   router.post("/videos/:id/like", userAuth, VideoController.likeVideo);
   router.delete("/videos/:id/like", userAuth, VideoController.unLikeVideo);
   router.post("/videos/:id/comment", userAuth, VideoController.commentVideo);
-  router.delete("/videos/:id", userAuth, VideoController.deleteVideo);
+
   router.get("/videos/feed/all", userAuth, VideoController.allFeed);
   // router.get("/video/feed/for-you", VideoController.forYouFeed);
 };

@@ -18,7 +18,7 @@ export const UserRouter = (router: Router) => {
   );
   router.post("/user/login", checkMailMiddleware, UserController.signInAccount);
   router.put(
-    "/users/:email",
+    "/user",
     userAuth,
     checkMailMiddleware,
     upload.single("avatar"),
