@@ -52,7 +52,7 @@ const getVideo = async (req: Request, res: Response) => {
   try {
     const { id }: getVideoProp = req.params as any;
     const video = await VideoDAO.getVideo({ id });
-    res.status(200).json({ message: " video found ", video: video.rows[0] });
+    res.status(200).json({ message: " video found ", video });
   } catch (e) {
     res.status(500).json({ error: "cannot find video", message: "unsuccess" });
     throw e;
