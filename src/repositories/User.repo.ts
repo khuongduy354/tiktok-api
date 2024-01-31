@@ -41,6 +41,8 @@ const getUserFromEmail = async ({ email }: getUserFromEmailProp) => {
     //   mergeRows(followResult.rows, "followings");
     //   mergeRows(followResult.rows, "followers");
     let result = await kn("useraccount").where({ email }).select("*").first();
+    if (result === undefined) throw Error("User not found");
+
     let id = result.id;
 
     const videoResult = await VideoDAO.getFeed(id);
@@ -58,6 +60,8 @@ const getUserWithAuth = async ({ email }: any) => {
       .where({ email })
       .select("useraccount.*")
       .first();
+    if (result === undefined) throw Error("User not found");
+
     return result;
   } catch (e) {
     throw e;
@@ -100,6 +104,7 @@ const unfollowUser = async ({ user_id, follower_id }: followUserProp) => {
 };
 const followUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
+    console.log(user_id, follower_id);
     await kn("userfollow").insert({ user_id, follower_id });
   } catch (e) {
     throw e;

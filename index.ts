@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use("/tiktok/v1", router);
+app.use("/v1", router);
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,7 +29,7 @@ process.on("unhandledRejection", (reason: Error, promise: Promise<any>) => {
 
 process.on("uncaughtException", (error: Error) => {
   console.log(error);
-  process.exit(1);
+  // process.exit(1);
 });
 
 export default app;

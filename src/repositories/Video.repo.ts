@@ -23,16 +23,21 @@ const addVideo = async ({
       .where({ email: author_email })
       .select("id")
       .first();
+    if (userResult === undefined) throw new Error("Author of video not found");
     const author_id = userResult.id;
 
-    await kn("video").insert({
-      author_id,
-      title,
-      public: isPublic,
-      views: 0,
-      video_link,
-      published_at,
-    });
+    const data = await kn("video")
+      .insert({
+        author_id,
+        title,
+        public: isPublic,
+        views: 0,
+        video_link,
+        published_at,
+      })
+      .returning("*");
+    if (data.length === 0) throw new Error("Video not found");
+    return data[0];
   } catch (e) {
     throw e;
   }
@@ -68,6 +73,7 @@ const commentVideo = async ({
 
 const getVideo = async ({ id }: getVideoProp) => {
   try {
+    // TODO: fix this to knex
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
     const authorJoin = `useraccount on useraccount.id = usercomment.user_id`;
@@ -83,14 +89,14 @@ const getVideo = async ({ id }: getVideoProp) => {
 
     const result = await pool.query(query);
     result.rows[0].comments = result.rows[0].comments.filter(
-      (comment: any) => comment !== null
+      (comment: any) => comment !== null && comment !== undefined
     );
     result.rows[0].comments = parseComment(result.rows[0].comments);
     result.rows[0].hearts = result.rows[0].hearts.filter(
       (heart: any) => heart !== null
     );
 
-    return result;
+    return result.rows[0];
   } catch (e) {
     throw e;
   }
@@ -98,16 +104,16 @@ const getVideo = async ({ id }: getVideoProp) => {
 
 const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
   try {
-    await kn("userheart").where(video_id).del();
-    await kn("usercomment").where(video_id).del();
+    await kn("userheart").where({ video_id }).delete();
+    await kn("usercomment").where({ video_id }).del();
     await kn("video").where({ id: video_id }).del();
-    return true;
   } catch (e) {
-    return false;
+    throw e;
   }
 };
 const getFeed = async (queryId = -1) => {
   try {
+    // TODO: fix this to knex
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
     const target = `video.*,
@@ -115,20 +121,19 @@ const getFeed = async (queryId = -1) => {
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (u1.email || '$$' || u1.avatar || '$$' || content ) as comments
        `;
-    const idCondition = queryId !== -1 ? `u2.id  = '${queryId}'` : "";
+    const idCondition = queryId !== -1 ? `WHERE u2.id  = '${queryId}'` : ""; // u2 = following feed, else normal feed
 
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount u1 on u1.id = usercomment.user_id
     LEFT JOIN useraccount u2 on u2.id = video.author_id 
-    WHERE ${idCondition}
+    ${idCondition}
     GROUP BY video.id,u2.id
     ORDER BY RANDOM()
     LIMIT 20 
      `;
 
     const result = await pool.query(query);
-
     for (let row of result.rows) {
       row.comments = row.comments.filter((comment: any) => comment !== null);
       row.hearts = row.hearts.filter((heart: any) => heart !== null);

@@ -1,4 +1,3 @@
-import fs from "fs";
 import {
   createUserProp,
   followUserProp,
@@ -59,20 +58,21 @@ const signInAccount = async (req: Request, res: Response) => {
     if (!isMatch) {
       return res.status(404).json({ error: "Not matching password" });
     }
-    const user = await UserDAO.getUserWithAuth({
+    const user = await UserDAO.getUserFromEmail({
       email,
     });
     const tok = signJWT(user.email, user.id);
 
     res.status(200).json({ message: "success", user, token: tok });
   } catch (e) {
-    res.status(500).json({ error: "cannot create user", message: "unsuccess" });
+    res.status(500).json({ error: "cannot loginuser", message: "unsuccess" });
     throw e;
   }
 };
 
 const getUserFromEmail = async (req: Request, res: Response) => {
   try {
+    console.log("hey");
     const UserDTO: getUserFromEmailProp = req.params as any;
     const user = await UserDAO.getUserFromEmail(UserDTO);
     res.status(200).json({ message: "success", user });
@@ -85,11 +85,12 @@ const getUserFromEmail = async (req: Request, res: Response) => {
 const updateUser = async (req: Request, res: Response) => {
   try {
     let UserDTO = req.body;
-    UserDTO = Object.keys(UserDTO).map((key) => {
-      JSON.parse(UserDTO[key]);
-    });
+    let hasAvatar = req.file && req.file.buffer;
+    for (let key in UserDTO) {
+      UserDTO[key] = JSON.parse(JSON.stringify(UserDTO[key]));
+    }
 
-    if (req.file && req.file.buffer) {
+    if (hasAvatar) {
       //avatar update
       const bufferFile = req.file.buffer;
       cloudinary.uploader
@@ -102,23 +103,28 @@ const updateUser = async (req: Request, res: Response) => {
           if (result) {
             UserDTO.avatar = result.url;
             const user = await UserDAO.updateUser(UserDTO);
-            return res.status(200).json({ message: " user updated  ", user });
+            return res
+              .status(200)
+              .json({ message: " user updated with avatar ", user });
           }
         })
         .end(bufferFile);
     } else {
       // no avatar update
       const user = await UserDAO.updateUser(UserDTO);
-      return res.status(200).json({ message: " user updated  ", user });
+      return res
+        .status(200)
+        .json({ message: " user updated without avatar ", user });
     }
   } catch (e) {
     res.status(500).json({ error: "cannot update", message: "unsuccess" });
     throw e;
   }
 };
+//TODO: fix follow using email
 const followUser = async (req: Request, res: Response) => {
   try {
-    let { id: follower_id } = req.params;
+    let { email: follower_id } = req.params;
 
     await UserDAO.followUser({
       user_id: parseInt(req.user.id),

@@ -9,34 +9,36 @@ import { VideoDAO } from "../repositories/";
 import { cloudinary } from "../config/cloudinary";
 const createVideo = async (req: Request, res: Response) => {
   try {
-    const VideoDTO: addVideoProp = req.body;
-    const { email, title } = req.body;
-    VideoDTO.author_email = JSON.parse(email);
-    VideoDTO.title = JSON.parse(title);
-
+    const VideoDTO = req.body;
+    for (let key in VideoDTO) {
+      VideoDTO[key] = JSON.parse(JSON.stringify(VideoDTO[key]));
+    }
     const bufferFile = req.file?.buffer;
+
     // const type = req.file?.mimetype.includes("video") ? "video" : "image";
     if (bufferFile) {
       cloudinary.uploader
-        .upload_stream(async (err, result) => {
+        .upload_stream({ resource_type: "raw" }, async (err, result) => {
           if (err) {
             console.log(err);
             return res
-              .status(500)
-              .json({ error: "cannot create video", message: "unsuccess" });
+              .status(err.http_code)
+              .json({ error: "cannot create video", message: err.message });
           }
           if (result) {
-            VideoDTO.video_location = result.url;
-            await VideoDAO.addVideo(VideoDTO);
-            return res.status(200).json({ message: " video created  " });
+            VideoDTO.video_link = result.url;
+            VideoDTO.author_email = req.user.email;
+            const data = await VideoDAO.addVideo(VideoDTO);
+            return res
+              .status(200)
+              .json({ message: " video created", video: data });
           }
         })
         .end(bufferFile);
     } else {
-      console.log("no buffer");
       return res
-        .status(500)
-        .json({ error: "cannot create video", message: "unsuccess" });
+        .status(400)
+        .json({ error: "No video file", message: "unsuccess" });
     }
   } catch (e) {
     console.log(e);
@@ -105,15 +107,28 @@ const commentVideo = async (req: Request, res: Response) => {
 const deleteVideo = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const isDeleted = await VideoDAO.deleteVideo({
+    const video = await VideoDAO.getVideo({ id: parseInt(id) });
+    if (video === undefined || video === null)
+      return res.status(404).json({ error: "Cannot find video to delete" });
+
+    let videoName = video.video_link.split("/").pop();
+    videoName = videoName.split(".");
+    videoName = videoName.join("");
+
+    if (videoName === undefined || videoName === null || videoName === "")
+      return res.status(404).json({ error: "Cannot find video to delete" });
+
+    const { result } = await cloudinary.uploader.destroy(videoName, {
+      resource_type: "raw",
+    });
+    if (result === "not found")
+      return res.status(404).json({ error: "Cannot find video to delete" });
+
+    await VideoDAO.deleteVideo({
       user_id: parseInt(req.user.id),
       video_id: parseInt(id),
     });
-    if (isDeleted) {
-      res.status(200).json({ message: `video deleted ` });
-    } else {
-      throw Error;
-    }
+    res.status(200).json({ message: `video deleted ` });
   } catch (e) {
     res
       .status(500)

@@ -23,9 +23,9 @@ export const userAuth = (req: Request, res: Response, next: NextFunction) => {
       req.user = decoded;
       next();
     } else {
-      next(new Error("Cant verify token"));
+      return res.status(401).json({ error: "Cant verify token" });
     }
   } else {
-    next(new Error("Invalid token"));
+    return res.status(401).json({ error: "Cant find token" });
   }
 };
