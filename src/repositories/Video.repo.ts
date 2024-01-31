@@ -79,7 +79,7 @@ const getVideo = async ({ id }: getVideoProp) => {
     const authorJoin = `useraccount on useraccount.id = usercomment.user_id`;
     const fields = `video.*, 
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
-      ARRAY_AGG (useraccount.email || '//' || useraccount.avatar || '//' || content ) as comments`;
+      ARRAY_AGG (useraccount.email || '$$' || useraccount.avatar || '$$' || content ) as comments`;
 
     const query = `SELECT ${fields} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
@@ -93,7 +93,7 @@ const getVideo = async ({ id }: getVideoProp) => {
     );
     result.rows[0].comments = parseComment(result.rows[0].comments);
     result.rows[0].hearts = result.rows[0].hearts.filter(
-      (heart: any) => heart !== null
+      (heart: any) => heart !== null && heart !== undefined
     );
 
     return result.rows[0];
