@@ -24,6 +24,6 @@ export const UserRouter = (router: Router) => {
     upload.single("avatar"),
     UserController.updateUser
   );
-  router.post("/users/:email/follow", userAuth, UserController.followUser);
-  router.delete("/users/:email/follow", userAuth, UserController.unFollowUser);
+  router.post("/users/:id/follow", userAuth, UserController.followUser);
+  router.delete("/users/:id/follow", userAuth, UserController.unFollowUser);
 };

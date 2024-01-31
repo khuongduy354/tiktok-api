@@ -113,21 +113,31 @@ const deleteVideo = async ({ video_id, user_id }: deleteVideoProp) => {
 };
 const getFeed = async (queryId = -1) => {
   try {
+    // -1 all feed, else queryId followers feed only
+
     // TODO: fix this to knex
     const commentJoin = `usercomment on video.ID = usercomment.video_id `;
     const likesJoin = `userheart on video.ID = userheart.video_id `;
-    const target = `video.*,
+    const target = `video.*, u2.id as author_id,
     u2.email as author_email,u2.avatar as author_avatar,
       ARRAY_AGG (DISTINCT userheart.user_id) as hearts,
       ARRAY_AGG (u1.email || '$$' || u1.avatar || '$$' || content ) as comments
        `;
-    const idCondition = queryId !== -1 ? `WHERE u2.id  = '${queryId}'` : ""; // u2 = following feed, else normal feed
+
+    //TODO: condition bitflag here
+    let specialized = "";
+    if (queryId !== -1) {
+      specialized = `
+    INNER JOIN userfollow on userfollow.follower_id = u2.id AND userfollow.user_id = ${queryId}
+      `;
+    }
+    //queryId = -1 means any video, else only specified queryId video
 
     const query = `SELECT ${target} FROM video 
     LEFT JOIN ${likesJoin} LEFT JOIN ${commentJoin}  
     LEFT JOIN useraccount u1 on u1.id = usercomment.user_id
     LEFT JOIN useraccount u2 on u2.id = video.author_id 
-    ${idCondition}
+    ${specialized}
     GROUP BY video.id,u2.id
     ORDER BY RANDOM()
     LIMIT 20 

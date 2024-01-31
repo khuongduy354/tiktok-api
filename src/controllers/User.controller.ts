@@ -121,10 +121,10 @@ const updateUser = async (req: Request, res: Response) => {
     throw e;
   }
 };
-//TODO: fix follow using email
+
 const followUser = async (req: Request, res: Response) => {
   try {
-    let { email: follower_id } = req.params;
+    let { id: follower_id } = req.params;
 
     await UserDAO.followUser({
       user_id: parseInt(req.user.id),

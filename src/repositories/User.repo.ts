@@ -97,14 +97,13 @@ const updateUser = async ({
 };
 const unfollowUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
-    await kn("userfollow").where({ user_id, follower_id }).del();
+    await kn("userfollow").select().where({ user_id, follower_id }).del();
   } catch (e) {
     throw e;
   }
 };
 const followUser = async ({ user_id, follower_id }: followUserProp) => {
   try {
-    console.log(user_id, follower_id);
     await kn("userfollow").insert({ user_id, follower_id });
   } catch (e) {
     throw e;

@@ -18,6 +18,6 @@ export const VideoRouter = (router: Router) => {
   router.delete("/videos/:id/like", userAuth, VideoController.unLikeVideo);
   router.post("/videos/:id/comment", userAuth, VideoController.commentVideo);
 
-  router.get("/videos/feed/all", userAuth, VideoController.allFeed);
+  router.get("/videos/feed/:option", userAuth, VideoController.getFeed);
   // router.get("/video/feed/for-you", VideoController.forYouFeed);
 };

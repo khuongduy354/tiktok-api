@@ -137,22 +137,32 @@ const deleteVideo = async (req: Request, res: Response) => {
   }
 };
 
-const forYouFeed = async (req: Request, res: Response) => {
+// const forYouFeed = async (req: Request, res: Response) => {
+//   try {
+//     const { user_id, video_id }: commentVideoProp = req.body;
+//     await VideoDAO.deleteVideo({ user_id, video_id });
+//     res.status(200).json({ message: `video deleted ` });
+//   } catch (e) {
+//     res
+//       .status(500)
+//       .json({ error: "cannot delete  video", message: "unsuccess" });
+//     throw e;
+//   }
+// };
+const getFeed = async (req: Request, res: Response) => {
   try {
-    const { user_id, video_id }: commentVideoProp = req.body;
-    await VideoDAO.deleteVideo({ user_id, video_id });
-    res.status(200).json({ message: `video deleted ` });
-  } catch (e) {
-    res
-      .status(500)
-      .json({ error: "cannot delete  video", message: "unsuccess" });
-    throw e;
-  }
-};
-const allFeed = async (req: Request, res: Response) => {
-  try {
-    console.log("hit");
-    const result = await VideoDAO.getFeed();
+    const { option } = req.params;
+    let bitFlag = -1; //-1 for all, -2 following, rest for specific user_id
+
+    if (option === "all") {
+      bitFlag = -1;
+    } else if (option === "following") {
+      bitFlag = req.user.id;
+    } else {
+      return res.status(400).json({ error: "invalid option" });
+    }
+
+    const result = await VideoDAO.getFeed(bitFlag);
     res.status(200).json({ message: `feed generated`, feed: result });
   } catch (e) {
     res.status(500).json({ error: "cannot find feed", message: "unsuccess" });
@@ -167,5 +177,5 @@ export default {
   unLikeVideo,
   commentVideo,
   deleteVideo,
-  allFeed,
+  getFeed,
 };
