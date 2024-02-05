@@ -21,11 +21,14 @@ export const userAuth = (req: Request, res: Response, next: NextFunction) => {
     const decoded = decodeJWT(tok);
     if (decoded) {
       req.user = decoded;
+      console.log("auth success");
       next();
     } else {
+      console.log("token not verified");
       return res.status(401).json({ error: "Cant verify token" });
     }
   } else {
+    console.log("cant find token");
     return res.status(401).json({ error: "Cant find token" });
   }
 };
