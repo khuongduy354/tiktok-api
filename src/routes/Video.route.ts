@@ -12,6 +12,7 @@ export const VideoRouter = (router: Router) => {
     VideoController.createVideo
   );
   router.get("/videos/:id", VideoController.getVideo);
+  router.get("/videos", userAuth, VideoController.getMyVideo);
   router.delete("/videos/:id", userAuth, VideoController.deleteVideo);
 
   router.post("/videos/:id/like", userAuth, VideoController.likeVideo);
@@ -19,5 +20,4 @@ export const VideoRouter = (router: Router) => {
   router.post("/videos/:id/comment", userAuth, VideoController.commentVideo);
 
   router.get("/videos/feed/:option", userAuth, VideoController.getFeed);
-  // router.get("/video/feed/for-you", VideoController.forYouFeed);
 };

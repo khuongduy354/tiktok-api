@@ -170,6 +170,14 @@ const getFeed = async (req: Request, res: Response) => {
   }
 };
 
+const getMyVideo = async (req: Request, res: Response) => {
+  try {
+    const videos = await VideoDAO.getUserVideo(parseInt(req.user.id));
+    res.status(200).json({ message: `user videos found`, videos });
+  } catch (err) {
+    throw err;
+  }
+};
 export default {
   createVideo,
   getVideo,
@@ -178,4 +186,5 @@ export default {
   commentVideo,
   deleteVideo,
   getFeed,
+  getMyVideo,
 };

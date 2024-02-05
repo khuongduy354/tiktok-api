@@ -71,6 +71,15 @@ const commentVideo = async ({
   }
 };
 
+const getUserVideo = async (user_id: number) => {
+  try {
+    const videos = await kn("video").where({ author_id: user_id }).select("*");
+    return videos;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const getVideo = async ({ id }: getVideoProp) => {
   try {
     // TODO: fix this to knex
@@ -163,4 +172,5 @@ export default {
   likeVideo,
   unLikeVideo,
   deleteVideo,
+  getUserVideo,
 };
