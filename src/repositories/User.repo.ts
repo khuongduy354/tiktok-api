@@ -109,6 +109,17 @@ const followUser = async ({ user_id, follower_id }: followUserProp) => {
     throw e;
   }
 };
+export const searchUsers = async (s: string) => {
+  try {
+    const data = await kn("useraccount")
+      .select(["email", "avatar", "id", "name"])
+      .orWhere("name", "like", `%${s}%`)
+      .orWhere("email", "like", `%${s}%`);
+    return data;
+  } catch (e) {
+    throw e;
+  }
+};
 export default {
   getUserFromEmail,
   getUserFromId,
@@ -117,4 +128,5 @@ export default {
   followUser,
   getUserWithAuth,
   unfollowUser,
+  searchUsers,
 };

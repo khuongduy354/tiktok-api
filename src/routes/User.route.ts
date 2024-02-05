@@ -16,6 +16,7 @@ export const UserRouter = (router: Router) => {
     checkMailMiddleware,
     UserController.getUserFromEmail
   );
+  router.get("/users", UserController.searchUsers);
   router.post("/user/login", checkMailMiddleware, UserController.signInAccount);
   router.put(
     "/user",

@@ -45,6 +45,7 @@ const signInAccount = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
+    console.log(req.body);
     //hash compare
     const saltRounds = 10;
     const hashedPassword = await bcrypt
@@ -149,6 +150,18 @@ const unFollowUser = async (req: Request, res: Response) => {
     throw e;
   }
 };
+
+export const searchUsers = async (req: Request, res: Response) => {
+  try {
+    const { s } = req.query;
+    const users = await UserDAO.searchUsers(s as string);
+    console.log(users);
+    res.status(200).json({ message: "success", users });
+  } catch (e) {
+    res.status(500).json({ error: "cannot find", message: "unsuccess" });
+    throw e;
+  }
+};
 export default {
   signupAccount,
   getUserFromEmail,
@@ -156,4 +169,5 @@ export default {
   followUser,
   signInAccount,
   unFollowUser,
+  searchUsers,
 };
