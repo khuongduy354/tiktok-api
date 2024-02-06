@@ -1,21 +1,27 @@
-
-Video {
+video {
 	id integer pk increments
-	author int *> User.id
-	comment int >* Comment.id
-	liked int *>* User.id
+	author int *> useraccount.id
 }
 
-User {
+useraccount {
 	id integer pk increments
-	followers int *>* User.id
-	followees int *>* User.id
-	uploaded_videos int >* Video.id
-	liked_videos int *>* Video.id
 }
 
-Comment {
+usercomment {
 	id integer pk increments
-	reply int null >* Comment.id
+	user_id int *> useraccount.id
+    video_id int *> video.id
 }
+
+userheart {
+	user_id int *> useraccount.id
+    video_id int *> video.id
+}
+
+userfollow {
+	id integer pk increments
+	follower int *> useraccount.id
+	user_id int *> useraccount.id
+}
+
 

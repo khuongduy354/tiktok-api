@@ -1,0 +1,2769 @@
+{
+	"info": {
+		"_postman_id": "e30cf527-afb5-43ce-8453-ec3f938f542f",
+		"name": "TIktok",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17922492"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Signup User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = JSON.parse(responseBody)",
+									"pm.environment.set(\"tok1\", jsonData.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"{{u1_password}}\",\r\n    \"email\":\"{{u1_email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/signup",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Signup User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\":\"{{u1_password}}\",\r\n    \"email\":\"{{u1_email}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/signup",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"signup"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "203"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"cb-yajOqQzgkSjLLrR7nJjJZZJj9RA\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Jan 2024 08:52:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1eUBnbWFpbC5jb20iLCJpZCI6MzYsImlhdCI6MTcwNjUxODMzNSwiZXhwIjoxNzA2NTM5OTM1fQ.9_gzE6Ru3t9n6pqLzCR4iI_UOeVp9EBf_VDKSmO26yE\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Sign In User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = JSON.parse(responseBody)",
+									"pm.environment.set(\"tok1\", jsonData.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"{{u1_password}}\",\r\n    \"email\":\"{{u1_email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sign In User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\":\"{{u1_password}}\",\r\n    \"email\":\"{{u1_email}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "413"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19d-B3vsDl+ofQhpXgJbvzHd1AWEDk0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Jan 2024 08:56:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": 36,\n        \"name\": \"\",\n        \"email\": \"duy@gmail.com\",\n        \"age\": null,\n        \"address\": null,\n        \"phone_number\": \"               \",\n        \"avatar\": null,\n        \"password\": \"$2b$10$MRfjkWwuuBI1y/nqqX4aW.aSEFSnZqUg2Jp5v941NLoNNjjgTqCEi\",\n        \"videos\": []\n    },\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1eUBnbWFpbC5jb20iLCJpZCI6MzYsImlhdCI6MTcwNjUxODU3MywiZXhwIjoxNzA2NTQwMTczfQ.vbaAwuXYgMqXkU0WbXuDcIKoDV2Rk6fwxeRq7h5t4oI\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get user ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/{{u1_email}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"{{u1_email}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/users/{{u1_email}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"{{u1_email}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "231"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e7-I84fJWtsMcn//YswX+4IWP4voLM\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Jan 2024 08:56:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": 36,\n        \"name\": \"\",\n        \"email\": \"duy@gmail.com\",\n        \"age\": null,\n        \"address\": null,\n        \"phone_number\": \"               \",\n        \"avatar\": null,\n        \"password\": \"$2b$10$MRfjkWwuuBI1y/nqqX4aW.aSEFSnZqUg2Jp5v941NLoNNjjgTqCEi\",\n        \"videos\": []\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{u1_email}}",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "sakdjfs",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "askdfj",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/khuongduy354/developments/ongoing/battlemap/image.webp"
+								},
+								{
+									"key": "name",
+									"value": "DuyDuy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "{{u1_email}}",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "sakdjfs",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "askdfj",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/khuongduy354/developments/ongoing/battlemap/image.webp"
+										},
+										{
+											"key": "name",
+											"value": "DuyDuy",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "332"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14c-wVciZsG2eG9KmKmWGhA+oiFhlRM\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Jan 2024 12:15:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \" user updated with avatar \",\n    \"user\": [\n        {\n            \"id\": 36,\n            \"name\": \"DuyDuy\",\n            \"email\": \"duy@gmail.com\",\n            \"age\": 0,\n            \"address\": \"sakdjfs\",\n            \"phone_number\": \"               \",\n            \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp\",\n            \"password\": \"$2b$10$MRfjkWwuuBI1y/nqqX4aW.aSEFSnZqUg2Jp5v941NLoNNjjgTqCEi\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Follow User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/{{u2_id}}/follow",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"{{u2_id}}",
+								"follow"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Follow User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/users/{{u2_id}}/follow",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"{{u2_id}}",
+										"follow"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c-3M0vq8bJugHbQla2FjWXVm2V5iA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 07:20:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Followed user!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unfollow user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/{{u2_id}}/follow",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"{{u2_id}}",
+								"follow"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unfollow user",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/users/{{u2_id}}/follow",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"{{u2_id}}",
+										"follow"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e-5MkbkduSVimG/Mc2h+AukCl0+Wg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 07:54:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unfollowed user!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Search Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users?s=Duy",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "s",
+									"value": "Duy"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/users?s=Duy",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "s",
+											"value": "Duy"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "179"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b3-SpwCfbPOSAoXXJR2Og0ul/SacJ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 05 Feb 2024 08:21:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"success\",\n    \"users\": [\n        {\n            \"email\": \"duy@gmail.com\",\n            \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp\",\n            \"id\": 36,\n            \"name\": \"DuyDuy\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Video",
+			"item": [
+				{
+					"name": "Create video",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "videoFile",
+									"type": "file",
+									"src": "/home/khuongduy354/assets/2024-01-27 10-40-09.mp4"
+								},
+								{
+									"key": "title",
+									"value": "Pixelated Forest 2",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/video",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"video"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "videoFile",
+											"type": "file",
+											"src": "/home/khuongduy354/assets/2024-01-27 10-40-09.mp4"
+										},
+										{
+											"key": "title",
+											"value": "Pixelated Forest 2",
+											"contentType": "application/json",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/video",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"video"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "259"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"103-eGBXsq7YOj6l9GlaOT2eHlKkB5E\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 04:01:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \" video created\",\n    \"video\": [\n        {\n            \"id\": 52,\n            \"author_id\": 36,\n            \"public\": true,\n            \"views\": 0,\n            \"video_link\": \"http://res.cloudinary.com/djnleiqr2/video/upload/v1706673677/snkactgf5ciq8l9vgzn8.mp4\",\n            \"published_at\": \"2024-01-30T17:00:00.000Z\",\n            \"title\": \"Pixelated Forest 2\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Like video",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/videos/{{v1_id}}/like",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"{{v1_id}}",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Like video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v1_id}}/like",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v1_id}}",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19-6YrK2K6CU72mnRAa68mdS8mQuX0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 04:02:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Liked video\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unlike",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/videos/{{v1_id}}/like",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"{{v1_id}}",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unlike",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v1_id}}/like",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v1_id}}",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c-j51JWQjSHxwhTEZ+DQVchuVf1iM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 04:02:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unliked video!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Comment Video",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"this is the third  comment \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/videos/{{v1_id}}/comment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"{{v1_id}}",
+								"comment"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Comment Video",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\":\"this is the third  comment \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v1_id}}/comment",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v1_id}}",
+										"comment"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"20-xsslHVUq9TyOmTVfpQc5BtmkWQ8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 04:03:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"video comment made\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Video",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/videos/{{v1_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"{{v1_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Video",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v1_id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v1_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "439"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b7-jIOD0woiaMnGo3Pg10f1EH04aAY\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 07:18:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \" video found \",\n    \"video\": {\n        \"id\": 58,\n        \"author_id\": 36,\n        \"public\": true,\n        \"views\": 0,\n        \"video_link\": \"http://res.cloudinary.com/djnleiqr2/raw/upload/v1706684832/mnzl5ljtvp9pyhq8vqsj\",\n        \"published_at\": \"2024-01-30T17:00:00.000Z\",\n        \"title\": \"Pixelated Forest 2\",\n        \"hearts\": [],\n        \"comments\": [\n            {\n                \"email\": \"duy@gmail.com\",\n                \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp\",\n                \"content\": \"this is the third  comment \"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Video",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/videos/{{v1_id}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"{{v1_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Video",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v1_id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v1_id}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "28"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1c-p+AkJqXHntrVSWBhxlAmzQ1q7aA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 04:08:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"video deleted \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Feed",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/videos/feed/all",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"feed",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Feed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/videos/feed/all",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"feed",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "414"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"19e-EK4prsvB3EDxMtFTYp87U6CngOE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 07:08:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"feed generated\",\n    \"feed\": [\n        {\n            \"id\": 58,\n            \"author_id\": 36,\n            \"public\": true,\n            \"views\": 0,\n            \"video_link\": \"http://res.cloudinary.com/djnleiqr2/raw/upload/v1706684832/mnzl5ljtvp9pyhq8vqsj\",\n            \"published_at\": \"2024-01-30T17:00:00.000Z\",\n            \"title\": \"Pixelated Forest 2\",\n            \"author_email\": \"duy@gmail.com\",\n            \"author_avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp\",\n            \"hearts\": [],\n            \"comments\": []\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Followers Feed",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{tok1}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/videos/feed/following",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"videos",
+								"feed",
+								"following"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Feed Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/videos/feed/following",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"feed",
+										"following"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "334"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14e-DxJ4zyDYJ66D3vI9HVoh1qU3LZE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 31 Jan 2024 07:50:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"feed generated\",\n    \"feed\": [\n        {\n            \"id\": 59,\n            \"author_id\": 37,\n            \"public\": true,\n            \"views\": 0,\n            \"video_link\": \"http://res.cloudinary.com/djnleiqr2/raw/upload/v1706687214/iyg7q4j7ue7igh9hkxaf\",\n            \"published_at\": \"2024-01-30T17:00:00.000Z\",\n            \"title\": \"some sh*t from user 2 \",\n            \"author_email\": \"ben@gmail.com\",\n            \"author_avatar\": null,\n            \"hearts\": [],\n            \"comments\": []\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User2",
+			"item": [
+				{
+					"name": "User Copy",
+					"item": [
+						{
+							"name": "Signup User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = JSON.parse(responseBody)",
+											"pm.environment.set(\"tok2\", jsonData.token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\":\"{{u2_password}}\",\r\n    \"email\":\"{{u2_email}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/signup",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"signup"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Signup User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\":\"{{u1_password}}\",\r\n    \"email\":\"{{u1_email}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/user/signup",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"user",
+												"signup"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "203"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"cb-yajOqQzgkSjLLrR7nJjJZZJj9RA\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Jan 2024 08:52:15 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"success\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1eUBnbWFpbC5jb20iLCJpZCI6MzYsImlhdCI6MTcwNjUxODMzNSwiZXhwIjoxNzA2NTM5OTM1fQ.9_gzE6Ru3t9n6pqLzCR4iI_UOeVp9EBf_VDKSmO26yE\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Sign In User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = JSON.parse(responseBody)",
+											"pm.environment.set(\"tok2\", jsonData.token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\":\"{{u2_password}}\",\r\n    \"email\":\"{{u2_email}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user/login",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Sign In User",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"password\":\"{{u1_password}}\",\r\n    \"email\":\"{{u1_email}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/user/login",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"user",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "413"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"19d-B3vsDl+ofQhpXgJbvzHd1AWEDk0\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Jan 2024 08:56:13 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": 36,\n        \"name\": \"\",\n        \"email\": \"duy@gmail.com\",\n        \"age\": null,\n        \"address\": null,\n        \"phone_number\": \"               \",\n        \"avatar\": null,\n        \"password\": \"$2b$10$MRfjkWwuuBI1y/nqqX4aW.aSEFSnZqUg2Jp5v941NLoNNjjgTqCEi\",\n        \"videos\": []\n    },\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImR1eUBnbWFpbC5jb20iLCJpZCI6MzYsImlhdCI6MTcwNjUxODU3MywiZXhwIjoxNzA2NTQwMTczfQ.vbaAwuXYgMqXkU0WbXuDcIKoDV2Rk6fwxeRq7h5t4oI\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get user ",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/users/{{u2_email}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"{{u2_email}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get user",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/users/{{u1_email}}",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"users",
+												"{{u1_email}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "231"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"e7-I84fJWtsMcn//YswX+4IWP4voLM\""
+										},
+										{
+											"key": "Date",
+											"value": "Mon, 29 Jan 2024 08:56:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"success\",\n    \"user\": {\n        \"id\": 36,\n        \"name\": \"\",\n        \"email\": \"duy@gmail.com\",\n        \"age\": null,\n        \"address\": null,\n        \"phone_number\": \"               \",\n        \"avatar\": null,\n        \"password\": \"$2b$10$MRfjkWwuuBI1y/nqqX4aW.aSEFSnZqUg2Jp5v941NLoNNjjgTqCEi\",\n        \"videos\": []\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "{{u2_email}}",
+											"type": "text"
+										},
+										{
+											"key": "address",
+											"value": "sakdjfs",
+											"type": "text"
+										},
+										{
+											"key": "phone_number",
+											"value": "askdfj",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/khuongduy354/developments/ongoing/battlemap/image.webp"
+										},
+										{
+											"key": "name",
+											"value": "DuyKhuong",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/user",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Update User",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "email",
+													"value": "{{u1_email}}",
+													"type": "text"
+												},
+												{
+													"key": "address",
+													"value": "sakdjfs",
+													"type": "text"
+												},
+												{
+													"key": "phone_number",
+													"value": "askdfj",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "/home/khuongduy354/developments/ongoing/battlemap/image.webp"
+												},
+												{
+													"key": "name",
+													"value": "DuyDuy",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/user",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "332"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"14c-wVciZsG2eG9KmKmWGhA+oiFhlRM\""
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 30 Jan 2024 12:15:52 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \" user updated with avatar \",\n    \"user\": [\n        {\n            \"id\": 36,\n            \"name\": \"DuyDuy\",\n            \"email\": \"duy@gmail.com\",\n            \"age\": 0,\n            \"address\": \"sakdjfs\",\n            \"phone_number\": \"               \",\n            \"avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp\",\n            \"password\": \"$2b$10$MRfjkWwuuBI1y/nqqX4aW.aSEFSnZqUg2Jp5v941NLoNNjjgTqCEi\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Follow User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/users/{{u1_id}}/follow",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"{{u1_id}}",
+										"follow"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unfollow user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/users/{{u1_id}}/follow",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"users",
+										"{{u1_id}}",
+										"follow"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Video Copy",
+					"item": [
+						{
+							"name": "Create video",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "videoFile",
+											"type": "file",
+											"src": "/home/khuongduy354/assets/2024-01-27 08-42-52.mp4"
+										},
+										{
+											"key": "title",
+											"value": "some sh*t from user 2 ",
+											"contentType": "application/json",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/video",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"video"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create video",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "videoFile",
+													"type": "file",
+													"src": "/home/khuongduy354/assets/2024-01-27 10-40-09.mp4"
+												},
+												{
+													"key": "title",
+													"value": "Pixelated Forest 2",
+													"contentType": "application/json",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/video",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"video"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "259"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"103-eGBXsq7YOj6l9GlaOT2eHlKkB5E\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 04:01:20 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \" video created\",\n    \"video\": [\n        {\n            \"id\": 52,\n            \"author_id\": 36,\n            \"public\": true,\n            \"views\": 0,\n            \"video_link\": \"http://res.cloudinary.com/djnleiqr2/video/upload/v1706673677/snkactgf5ciq8l9vgzn8.mp4\",\n            \"published_at\": \"2024-01-30T17:00:00.000Z\",\n            \"title\": \"Pixelated Forest 2\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Like video",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v2_id}}/like",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v2_id}}",
+										"like"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Like video",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/videos/{{v1_id}}/like",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"videos",
+												"{{v1_id}}",
+												"like"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "25"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"19-6YrK2K6CU72mnRAa68mdS8mQuX0\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 04:02:23 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Liked video\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Unlike",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v2_id}}/like",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v2_id}}",
+										"like"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Unlike",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/videos/{{v1_id}}/like",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"videos",
+												"{{v1_id}}",
+												"like"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "28"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1c-j51JWQjSHxwhTEZ+DQVchuVf1iM\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 04:02:41 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Unliked video!\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Comment Video",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\":\"this is the 2nd  comment \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v2_id}}/comment",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v2_id}}",
+										"comment"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Comment Video",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"content\":\"this is the third  comment \"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/videos/{{v1_id}}/comment",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"videos",
+												"{{v1_id}}",
+												"comment"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "32"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"20-xsslHVUq9TyOmTVfpQc5BtmkWQ8\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 04:03:04 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"video comment made\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get Video",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v2_id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v2_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get Video",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BASE_URL}}/videos/{{v1_id}}",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"videos",
+												"{{v1_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "424"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1a8-qIZRfRXp6kg0ITqH8I1auydBHzQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 04:04:16 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \" video found \",\n    \"video\": {\n        \"id\": 52,\n        \"author_id\": 36,\n        \"public\": true,\n        \"views\": 0,\n        \"video_link\": \"http://res.cloudinary.com/djnleiqr2/video/upload/v1706673677/snkactgf5ciq8l9vgzn8.mp4\",\n        \"published_at\": \"2024-01-30T17:00:00.000Z\",\n        \"title\": \"Pixelated Forest 2\",\n        \"hearts\": [],\n        \"comments\": [\n            {\n                \"email\": \"duy@gmail.com//http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp//this is the third  comment \"\n            }\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete Video",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok1}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BASE_URL}}/videos/{{v2_id}}",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"{{v2_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Delete Video",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BASE_URL}}/videos/{{v1_id}}",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"videos",
+												"{{v1_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "28"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1c-p+AkJqXHntrVSWBhxlAmzQ1q7aA\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 04:08:35 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"video deleted \"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get All Feed",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{tok2}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BASE_URL}}/videos/feed/all",
+									"host": [
+										"{{BASE_URL}}"
+									],
+									"path": [
+										"videos",
+										"feed",
+										"all"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Get All Feed",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{tok1}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{BASE_URL}}/videos/feed/all",
+											"host": [
+												"{{BASE_URL}}"
+											],
+											"path": [
+												"videos",
+												"feed",
+												"all"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "414"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"19e-EK4prsvB3EDxMtFTYp87U6CngOE\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 31 Jan 2024 07:08:49 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"feed generated\",\n    \"feed\": [\n        {\n            \"id\": 58,\n            \"author_id\": 36,\n            \"public\": true,\n            \"views\": 0,\n            \"video_link\": \"http://res.cloudinary.com/djnleiqr2/raw/upload/v1706684832/mnzl5ljtvp9pyhq8vqsj\",\n            \"published_at\": \"2024-01-30T17:00:00.000Z\",\n            \"title\": \"Pixelated Forest 2\",\n            \"author_email\": \"duy@gmail.com\",\n            \"author_avatar\": \"http://res.cloudinary.com/djnleiqr2/image/upload/v1706616951/ay037mozp8sml3unhdzr.webp\",\n            \"hearts\": [],\n            \"comments\": []\n        }\n    ]\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
